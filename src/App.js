@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react'
+import {useDispatch} from 'react-redux';
+
+import Form from './components/form/form'
+import {getPosts} from './components/redux/actions'
+
 import './App.css';
+import Posts from './components/posts/posts';
 
 function App() {
+  const [currentId, setCurrentId] = useState(null)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
+  }, [currentId, dispatch])
+  // console.log(currentId)
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <br/>
+       Base de Datos de los Productos de la tienda <br/>Te amo mucho!
+       <br/>
+       <br/>
+       
+       {/* <DragAndDrop id="FileUpload" /> */}
+       
+       <Form currentId={currentId} setCurrentId={setCurrentId}/>
+       <br></br>
+       <hr />
+        <Posts setCurrentId={setCurrentId}/>
+        <hr />
+       </header>
     </div>
   );
 }
