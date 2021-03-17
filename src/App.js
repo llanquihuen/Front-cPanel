@@ -11,16 +11,21 @@ function App() {
   const [currentId, setCurrentId] = useState(null)
 
   const dispatch = useDispatch();
-
+  const logOut = () =>{
+    localStorage.removeItem("token");
+    window.location.href='./loginproductos'
+}
   useEffect(() => {
       dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
   }, [currentId, dispatch])
   // console.log(currentId)
   return (
     <div className="App">
+      <button className={'btns-post'} style={{position:'absolute',top:5,right:10,background:'pink',color:'black',fontSize:'calc(10px + 1.2vmin)'}} onClick={logOut}>Cerrar Sesion</button>
       <header className="App-header">
-        <br/>
-       Base de Datos de los Productos de la tienda <br/>Te amo mucho!
+        <p style={{paddingTop:50}}>Base de Datos de los Productos de la tienda </p>
+        Te amo mucho! 
+
        <br/>
        <br/>
        

@@ -8,16 +8,16 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from "redux-thunk"
 import reducers from './components/redux/combineReducers'
 
-import App from './App';
-import Login from './Login'
+// import App from './App';
+// import Login from './Login'
+import Routes from './Routes.js'
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
 <Provider store={store}>   
-  <App />
-  <Login />
-</Provider>,
+ <Routes />
+ </Provider>,
   document.getElementById('root')
 );
 

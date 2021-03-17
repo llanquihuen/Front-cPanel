@@ -23,36 +23,36 @@ const Login = () => {
     const [datos, setDatos] = useState({
             username:"",
             password:""
-        
+
     })
     const [unerror, setUnerror] = useState(false)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         document.title = "Login - Lorem Ipsum "
-     
+
     }, [])
 
 
     // useEffect(() => {
     //     console.log(datos)
     //     }, [datos])
-  
+
 
     const iniciarSesion= async(dat)=>{
         setLoading(true)
         await axios.post(baseUrl,{username:dat.username, password: dat.password})
         .then(res=>{
             setLoading(false)
-            console.log(res.data)
-            window.location.href="/"
-            if(res.data.token){
-            localStorage.setItem("token", "Bearer "+ res.data.token )
-            localStorage.setItem("photo", res.data.photo )
-            localStorage.setItem("id",res.data.id)
-     
+            console.log(res.data.data)
+            window.location.href="/loginproductos"
+            if(res.data.data.token){
+            localStorage.setItem("token", "Bearer "+ res.data.data.token )
+            // localStorage.setItem("photo", res.data.data.photo )
+            // localStorage.setItem("id",res.data.id)
+
             }
-            
+
         }).catch(error=>{
             setLoading(false)
             setUnerror(true)
@@ -60,7 +60,7 @@ const Login = () => {
         })
     }
 
-    
+
     if(document.getElementById("inputPass")){
         const input = document.getElementById("inputPass");
         input.addEventListener("keyup", function(event) {
@@ -75,9 +75,9 @@ const Login = () => {
     primary: pink,
   },
 });
-    
+
     return (
-        <div style={{padding:'0',margin:0,background:'rgba(255,255,255,.4)',height:'100vh',display:'flex', alignItems:'center'}} >
+        <div style={{padding:'0',margin:0,background:'#ecc',height:'100vh',display:'flex', alignItems:'center'}} >
                <Container style={{position:'relative',background:'rgba(255,255,255,.8)',height:'80vh',borderRadius:20, boxShadow:'10px 10px 5px #9D5C5C66'}}  maxWidth="sm">
             <div style={{position:'relative',height:'80vh',minHeight:400,display:'flex', flexDirection:'column',justifyContent:'space-around',alignItems:'center'}} >
                 <img src={imagenCamila} style={{height:'30%'}} alt="logo"/>
@@ -89,14 +89,14 @@ const Login = () => {
                 <TextField style={{marginBottom:20}} name="username" variant="outlined" label="Nombre" fullWidth  onClick={(e)=> setDatos ({...datos, username:e.target.value}) }    onChange={(e)=> setDatos ({...datos, username:e.target.value})}/>
                 <TextField id="inputPass" style={{marginBottom:20}} name="password" variant="outlined" type='password' label="Password" fullWidth  onChange={(e)=> setDatos ({...datos, password:e.target.value })}/>
                       </ThemeProvider>
-                            <div>{!loading? "Usuario: admin - Contraseña: 12345": ""}</div>
+                            <div>{!loading? "Usuario: luis1 - Contraseña: lalala": ""}</div>
                             <div>{loading? "Espere un momento...": " "}</div>
                             <div>{unerror? "Contraseña o usuario incorrecto": " "}</div>
                 <Button id="botonLogin" style={{background:'crimson', color:'snow'}} variant="contained" color="primary" size="large"  onClick={()=>iniciarSesion(datos)} fullWidth>Aceptar</Button>
 
            </div>
            </Container>
-            
+
         </div>
     )
 }

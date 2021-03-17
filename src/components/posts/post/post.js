@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux'
 import {deletePost} from '../../redux/actions'
 import  "./post-style.css"
 
+// const getToken = {headers:{authorization: localStorage.getItem("token")} }
 // import Gallery from '../post/gallery'
 
 // const url = 'https://sakuranboshodo.cl/test2/'
@@ -50,7 +51,7 @@ const Post = ({post, setCurrentId}) => {
         
             let photos = post.imageLocation
         
-        console.log(photos)
+        // console.log(photos)
         // if (photos === undefined){
         //      photos = post.createdProduct.imageLocation
         // }
@@ -123,7 +124,7 @@ const Post = ({post, setCurrentId}) => {
                             className={`thumb-pic ${cardClassname(i)}`} 
                             onMouseOver={() => setHoverIndex(i)} 
                             onMouseLeave={() => setHoverIndex(leaveMouse(hoverIndex, prevCount))}
-                            src={`${url}${imag.replace(/\\/g, "/")}`}></img>
+                            src={`${url}${imag.replace(/uploads\\/g, "thumb/thumbnails-")}`}></img>
                         
                             // <p
                             // style={{position:'absolute', top:-38, right:2, color:'grey', cursor:'pointer'}}

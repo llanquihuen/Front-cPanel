@@ -8,6 +8,7 @@ import './drag-form.css'
 
 // const url = 'https://sakuranboshodo.cl/test2/';
 const url ='http://localhost:5000/';
+const getToken = {headers:{authorization: localStorage.getItem("token")} }
 
 const Form = ({currentId, setCurrentId}) => {
     console.log(currentId)
@@ -32,7 +33,7 @@ const Form = ({currentId, setCurrentId}) => {
           }
           
         // formData.append("productImage", acceptedFiles[0]);
-        axios.post(`${url}images`, formData,  
+        axios.post(`${url}images`, formData,  getToken
         //     {
         //     onUploadProgress: ProgressEvent =>{
         //         setUploadPercentage(parseInt(Math.round((ProgressEvent.loaded *100)/ProgressEvent.total)))
@@ -41,14 +42,15 @@ const Form = ({currentId, setCurrentId}) => {
         // }
         )
         .then(res=>{
+            console.log(postData)
             let array0=res.data.createdProduct.photo.split(/\s*(?:,|$)\s*/)
             let array1=postData.imageLocation
-            // console.log(array1)
+            console.log(postData)
             array0.map((photo)=> array1.push(photo))
-            // console.log(array1)
-
+            console.log(array1)
             setPostData({...postData, imageLocation:array1})
-            
+                console.log(postData)
+
             currentId? dispatch(updatePost(currentId, postData)): console.log("new item")
             // axios.delete(`${url}images\\${res.data.createdProduct._id}`);
             // let array1=['uno','dos']
@@ -123,7 +125,27 @@ const Form = ({currentId, setCurrentId}) => {
         // console.log(e, index)
         console.log(photos)
     }
-    
+
+    const clickF=(e)=>{
+        const index = photos.indexOf(e)
+        if (index > -1){
+            photos.splice(index, 1)
+            photos.unshift(e)
+        }
+        console.log(photos)
+        setPostData({imageLocation:photos})
+              if(currentId){
+            dispatch(updatePost(currentId, postData))
+            console.log(postData)
+        }else{
+            console.log(postData)
+            dispatch(createPost(postData))
+        }
+        // console.log(e, index)
+        console.log(photos)
+    }
+    if(postData.imageLocation === ""){setPostData({...postData,imageLocation:[]})}
+
     useEffect(() => {
         if (post) setPostData(post)
         
@@ -183,6 +205,10 @@ const Form = ({currentId, setCurrentId}) => {
                         className={'thumb-x'}
                         key={i} 
                         onClick={()=> clickX(imag)}>X</p>
+                            <p
+                        className={'thumb-f'}
+                        key={i} 
+                        onClick={()=> clickF(imag)}>F</p>
                         </div>
                     )}
                     <div style={{fontSize:16,height:100}} className="drag-main2 thumb-pic"{...getRootProps()}>
