@@ -1,4 +1,3 @@
-import { red } from '@material-ui/core/colors';
 import React,{useEffect, useState} from 'react'
 import ImageGallery from 'react-image-gallery';
 import { useMediaQuery } from 'react-responsive';
@@ -7,15 +6,16 @@ import './detalle.css'
 const url = 'http://localhost:5000/'
 
 const ImageGalerryDetalle = (props) => {
-    console.log(props.Product.imageLocation)
+    // console.log(props.Product.imageLocation)
     const isMobile = useMediaQuery({ query: '(max-width: 920px)' })
-    console.log(isMobile)
+    // console.log(isMobile)
 
     const [Images, setImages] = useState([])
 
   useEffect(() => {
         if(props.Product.imageLocation && props.Product.imageLocation.length > 0){
             let images = [];
+            // eslint-disable-next-line array-callback-return
             props.Product.imageLocation && props.Product.imageLocation.map(item =>{
                 images.push({
                     original:`${url}${item}`,
@@ -25,7 +25,7 @@ const ImageGalerryDetalle = (props) => {
             setImages(images)
         }
     }, [props])
-    console.log(Images)
+    // console.log(Images)
     return (
         <div className={isMobile? 'mobile':'long-screen'}>
 

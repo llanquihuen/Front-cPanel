@@ -11,7 +11,7 @@ const Products = ({setCurrentId}) => {
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
     console.log("posts")
     console.log(posts)
-    // console.log(setCurrentId)
+    console.log(setCurrentId)
    
     return (
 

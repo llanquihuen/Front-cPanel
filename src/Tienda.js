@@ -16,7 +16,7 @@ function Tienda() {
         dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
     }, [currentId, dispatch])
 
-    
+    console.log(currentId)
   return (
 
     <div className="styleApp">

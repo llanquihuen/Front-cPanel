@@ -1,6 +1,8 @@
 html{
     font-size:62.5%;
     box-sizing: border-box;
+    overflow-x: hidden;
+
   }
   body{
     margin: 0;
@@ -76,9 +78,9 @@ html{
   .top-header{
     display: flex;
     flex-direction: column;
-    height: 40vh;
+    height: 35vh;
     min-height: 100px;
-    width: 100%;
+    width: 100vw;
     position: absolute;
     top:0;
     z-index: 2;
@@ -135,9 +137,16 @@ html{
   object-fit: cover;
   object-position: center;
   }
+
   .card-img{
     height:30rem;
     width: 30rem;
+  }
+
+  @media only screen and (max-width: 440px) {
+    .card-img{
+      height: 20rem ;
+    }
   }
 
   a{

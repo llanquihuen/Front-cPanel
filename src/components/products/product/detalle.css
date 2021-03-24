@@ -1,13 +1,13 @@
 .body-detalle{
-    margin: 0 5vw;
+    margin: 3em 5vw;
 
 }
 .box-detalle{
     display: flex;
     justify-content: space-evenly;
-    /* border:2px solid black; */
-    /* border-radius: 10px; */
-    background-color: rgba(250, 166, 191, 0.301);
+    border:1px solid rgba(0, 0, 0, 0.342);
+    border-radius: 5px;
+    background-color: rgba(250, 166, 191, 0.2);
 }
 .box-mobile-detalle{
     border:1px solid black;
@@ -22,11 +22,12 @@
     /* background-color: red; */
     /* margin: auto; */
 }
-.mobile-flex2{
-}
+/* .mobile-flex2{
+} */
 .flex2{
     width: 40%;
-    /* background-color: purple; */
+    padding:1em 1em;
+    /* background-color: rgb(255, 255, 255); */
 }
 .image-gallery-bullet.active{
 
@@ -43,9 +44,7 @@
     margin: auto;
 }
 .long-screen{
-    display: flex;
     flex-direction: row;
-    width:auto;
-    height: 100%;
+    max-width: 100%;
     margin:2rem;
 }

@@ -1,0 +1,32 @@
+
+.card-carrito{
+    display: flex;
+    justify-content: left ;
+    align-content: space-between;
+    /* background-color: rgb(255, 255, 255); */
+}
+.card-img-carrito img{
+    margin:1em;
+    width: 9em;
+    height: 6em;
+    object-fit: cover;
+    justify-self: left;
+    align-content: space-between;
+
+}
+.card-body-carrito{
+    width:100%;
+    /* background-color: aqua; */
+
+}
+.row-carrito{
+    width:100%;
+    display: flex;
+    justify-content: left ;
+    background-color: rgb(255, 255, 255);
+    margin: 1em 0;
+    border-top: 2px solid rgb(252, 196, 196); 
+    border-bottom: 2px solid rgb(252, 196, 196); 
+
+
+}

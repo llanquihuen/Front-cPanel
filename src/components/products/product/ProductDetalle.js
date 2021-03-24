@@ -1,3 +1,5 @@
+//Este archivo va exportado directo a /Routes.js
+
 import React,{useEffect, useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {useSelector} from 'react-redux';
@@ -15,9 +17,11 @@ import './detalle.css'
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const url = 'http://localhost:5000/products/'
-  const MyGallery = (routerProps) => {
+const MyGallery = (routerProps) => {
   const [Product, setProduct] = useState([])
   const [Product2, setProduct2] = useState([])
+  const [thisProduct, setThisProduct] = useState([])
+  
 
   const isMobile = useMediaQuery({ query: '(max-width: 920px)' })
 
@@ -27,20 +31,128 @@ const url = 'http://localhost:5000/products/'
       setProduct(res.data[0])
       
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
   
   const data = posts.filter(item=>{
-    console.log(item._id, routerProps.match.params._id )
+    // console.log(item._id, routerProps.match.params._id )
+    // eslint-disable-next-line eqeqeq
     return item._id != routerProps.match.params._id
   })
 
   useEffect(()=>{
     setProduct2(data)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[posts])
-  console.log(Product2)
+  // console.log(Product2)
 
-  
+  const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+
+  if (!listaPedido){
+    setListaPedido([])
+  }
+
+  let esteProduct=""
+  if (listaPedido){
+    esteProduct = listaPedido.find(item=>{
+        return item._id === Product._id
+    })
+  }
+
+  const addToCartHandler =()=>{
+    const listaStorage = JSON.parse(window.localStorage.getItem('invitado'));
+    if (listaStorage){
+      let isThere=0
+      listaStorage.map(i=>{
+        // console.log(i._id, listaPedido[0]._id)
+        if (Product._id === i._id){
+          console.log('if', i)
+          isThere=isThere+1
+          i.cantidad=i.cantidad+1 
+        
+            console.log(thisProduct)
+            setThisProduct({...thisProduct, cantidad:i.cantidad})
+          
+          console.log(listaStorage)
+          window.localStorage.setItem('invitado', JSON.stringify(listaStorage));
+        }
+      })
+      if (isThere===0){
+        console.log('else')
+        console.log(listaPedido)
+          listaPedido.push({
+            "_id": Product._id,
+            "cantidad":1,
+          })
+          console.log(listaPedido)
+          setThisProduct({...thisProduct, cantidad:listaPedido.cantidad})
+
+          window.localStorage.setItem('invitado', JSON.stringify(listaPedido));
+        }
+        
+    }else{
+      console.log('else2')
+
+      listaPedido.push({
+        "_id": Product._id,
+        "cantidad":1,
+      })
+      setThisProduct({...thisProduct, cantidad:listaPedido.cantidad})
+
+      window.localStorage.setItem('invitado', JSON.stringify(listaPedido));
+
+    }
+    console.log('setlistapedido mas')
+
+    setListaPedido(listaPedido)
+  }
+  //no usar filter desarma el JSON completo.
+
+  // setThisProduct(esteProduct)
+
+  const deleteFromCartHandler =()=>{
+    const listaStorage = JSON.parse(window.localStorage.getItem('invitado'));
+    if (listaStorage){
+      let isThere=0
+      listaStorage.map(i=>{
+        // console.log(i._id, listaPedido[0]._id)
+        if (Product._id === i._id){
+          console.log('if menos')
+          isThere=isThere-1
+          i.cantidad=i.cantidad-1 
+          setThisProduct({...thisProduct, cantidad:i.cantidad})
+
+          if(i.cantidad===0){
+            console.log('zero')
+
+            let aZero = listaStorage.filter(item=>{return item.cantidad !== 0})
+            
+            console.log(listaPedido)
+            window.localStorage.setItem('invitado', JSON.stringify(aZero));
+            setListaPedido(aZero)
+            setThisProduct(null)
+
+          }else{
+            console.log('else menos')
+            console.log(listaStorage)
+            window.localStorage.setItem('invitado', JSON.stringify(listaStorage));
+          }
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    
+    setThisProduct(esteProduct)
+    
+    let aZero = listaPedido.filter(item=>{return item.cantidad !== 0})
+    window.localStorage.setItem('invitado', JSON.stringify(aZero));
+
+  }, [esteProduct])
+  console.log('end render')
+
   return (<>
       <HeroSwiper />
     <div className='body-detalle'>
@@ -52,7 +164,13 @@ const url = 'http://localhost:5000/products/'
         <h2>Nombre: {Product.name}</h2>
         <h2>Descripcion: {Product.descrip}</h2>
         <h2>Precio: ${Product.price}</h2>
-      <Button outline="black"size="large" style={{background:'pink',color:'black', fontSize:'16px'}}>Agregar al carrito</Button>
+       
+       {/* {esteProduct? <h2>Llevas {esteProduct.cantidad===1?`1 artículo`:`${esteProduct.cantidad} artículos`}</h2>:<></>} */}
+      <div style={{display:'flex'}}>
+      {thisProduct? <Button size="large" onClick={deleteFromCartHandler} style={{background:'pink',color:'black', fontSize:'16px'}}>Quitar</Button>:<></>}
+       {thisProduct ? <h2>Llevas {thisProduct.cantidad}</h2>:<></>}
+      <Button size="large" onClick={addToCartHandler} style={{background:'pink',color:'black', fontSize:'16px'}}>Agregar</Button>
+      </div>
       </div>
     </div>
     <h1>Otros Productos</h1>

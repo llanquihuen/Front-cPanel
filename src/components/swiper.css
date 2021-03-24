@@ -2,7 +2,7 @@
   
  .swiper-container {
     width: 100%;
-    height: 40vh;
+    height: 35vh;
     min-height: 100px;
   }
   @media only screen and (max-height: 640px) {
@@ -35,10 +35,50 @@
       object-fit: cover;
   }
   .swiper-slide-active{
-      animation: slidezoom 6s ease-out;
-  
+      animation: slidezoom 7s ease-out;
+  }
+  .carroIcono{
+    position: relative;
+    margin-right: 5vw;
+    font-size: 16px;
+    cursor: pointer;
+
+  }
+  .littleNumber{
+    position: absolute;
+    width: 22px;
+    font-size: 13px;
+    top:0px;
+    right:0px;
+    /* border:1px solid rgb(192, 192, 192); */
+    border-radius: 50%;
+    background-color: rgb(219, 83, 105);
+    color:white;
+  }
+  .image-gallery-thumbnails {
+    overflow-x: scroll !important;
   }
   
+  .image-gallery-thumbnails::-webkit-scrollbar {
+    width: 7px;
+  }
+
+/*   
+  .image-gallery-thumbnails::-webkit-scrollbar-track {
+    box-shadow: inset 4px 4px 5px rgb(88, 27, 27); 
+    border-radius: 10px;
+    border:1px solid rgb(153, 153, 153);
+  }
+  .image-gallery-thumbnails::-webkit-scrollbar-thumb {
+    background: rgb(255, 77, 107);
+    border: 1px solid palevioletred;
+    box-shadow: inset 4px 4px 5px rgb(255, 255, 255); 
+
+    border-radius: 10px;
+
+  } 
+  */
+
   @keyframes slidezoom {
       from {transform:(1,1)}
       to {transform:scale(1.1,1.1);}
