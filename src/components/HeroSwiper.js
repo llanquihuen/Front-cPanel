@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide,  } from 'swiper/react';
 import SwiperCore, {Autoplay} from 'swiper';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { useMediaQuery } from 'react-responsive';
@@ -67,9 +67,9 @@ const HeroSwiper = (este) => {
     const [state, setState] = useState({right: false});
     const anchor='right'
     const toggleDrawer = (anchor, open) => (event) => {
-      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
-      }
+    //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    //     return;
+    //   }
   
       setState({ ...state, [anchor]: open });
     };
@@ -77,6 +77,7 @@ const HeroSwiper = (este) => {
 
     //QUE CALCULE EL PRECIO----------------------------
     const preciosCantidad = intersection.map((post)=>{ 
+        // eslint-disable-next-line eqeqeq
         let store = storage.filter(el=> el._id==post._id)
         return post.price * store[0].cantidad})
 
@@ -88,7 +89,7 @@ const HeroSwiper = (este) => {
       <div
         className={clsx(classes.list)}
         role="presentation"
-        onClick={toggleDrawer(anchor, false)}
+        // onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
         
       >
@@ -105,9 +106,8 @@ const HeroSwiper = (este) => {
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
                 
                 <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em'}}>Comprar</Button>
-                
-                
             </div>
+            
       </div>
     );
 
@@ -156,7 +156,7 @@ const HeroSwiper = (este) => {
             <div className="barra-flex-der">
                 <div className="iconos carroIcono">
             <React.Fragment key={anchor}>
-            <Drawer BackdropProps={{style: {backgroundColor: '#ffffff33'}}} style={{opacity:'98%',backdropFilter:'blur(1px)'}} anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>{list(anchor)}</Drawer>
+            <SwipeableDrawer BackdropProps={{style: {backgroundColor: '#ffffff33'}}} style={{opacity:'98%',backdropFilter:'blur(1px)'}} anchor={anchor} open={state[anchor]} onOpen={toggleDrawer(anchor, true)} onClose={toggleDrawer(anchor, false)}>{list(anchor)}</SwipeableDrawer>
             <Button style={{border:'2px solid pink', width:'8rem'}} onClick={toggleDrawer(anchor, true)}>
                     {/* <FontAwesomeIcon style={{fontSize:'30px',color:'#ffdddd'}} icon={faShoppingCart} /> */}
                     {storage.length>0? <ShoppingCart style={{ color: pink[100],fontSize:40 }} />:<ShoppingCartOutlined style={{ color: pink[50],fontSize:40 }}/>}

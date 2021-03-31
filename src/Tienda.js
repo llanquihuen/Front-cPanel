@@ -15,12 +15,18 @@ function Tienda() {
     useEffect(() => {
         dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
     }, [currentId, dispatch])
+    // eslint-disable-next-line no-unused-vars
+    const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+
+    const updateLista =()=>{
+        setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    } 
 
     console.log(currentId)
   return (
 
     <div className="styleApp">
-        <HeroSwiper />
+        <HeroSwiper updateLista={updateLista}/>
         <Products setCurrentId={setCurrentId}/>
         <Footer />
         

@@ -13,8 +13,6 @@ export const getPosts = () => async (dispatch) => {     //async thunk porque fet
     } catch (error) {
         console.log(error.message)
     }
-    
-
 }
 
 export const createPost = (post) => async (dispatch) => {

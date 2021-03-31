@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {Button, Grid} from '@material-ui/core'
+import {pink}from '@material-ui/core/colors'
 
 
 import ProductPortada from './ProductPortada'
@@ -101,7 +102,6 @@ const MyGallery = (routerProps) => {
 
 
 
-
     const changeCartHandler=()=>{
         console.log('boton')
         const listaStorage = JSON.parse(window.localStorage.getItem('invitado'));
@@ -187,8 +187,7 @@ const MyGallery = (routerProps) => {
 
   }, [esteProduct,listaPedido])
 
-  console.log(esteProduct+'-------------------------')
-  console.log(updateLista)
+//   console.log(esteProduct+'-------------------------')
 
     return (<>
         <HeroSwiper updateLista={updateLista}/>
@@ -207,10 +206,14 @@ const MyGallery = (routerProps) => {
 
                 <div>
                     <label htmlFor="cantidadP">Cantidad:</label><br/>
-                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  value={numeroItem} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
+                    <div style={{display:'flex', gap:10}}>
+                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  placeholder={thisProduct ? thisProduct.cantidad:'1'} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
+                    {numeroItem>0 && numeroItem<=Product.stock? <Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={changeCartHandler} >{esteProduct? "Editar" :"Agregar"}</Button>: numeroItem<=0 ? !esteProduct? <></>:<Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={deleteElementHandler} >Quitar </Button>: <p>No hay stock para su pedido</p>}
+                    </div>
                 </div>
                 <br></br>
-                {numeroItem>0 && numeroItem<=Product.stock? <Button size="large" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={changeCartHandler} >{esteProduct? "Editar" :"Agregar"}</Button>: numeroItem<=0 ? !esteProduct? <></>:<Button size="large" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={deleteElementHandler} >Quitar </Button>: <p>No hay stock para su pedido</p>}
+                {listaPedido.length>0? <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em 0', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
+
                 {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px'}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
 
 
