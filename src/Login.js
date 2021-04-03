@@ -45,7 +45,7 @@ const Login = () => {
         .then(res=>{
             setLoading(false)
             console.log(res.data.data)
-            window.location.href="/loginproductos"
+            window.location.href="./loginproductos"
             if(res.data.data.token){
             localStorage.setItem("token", "Bearer "+ res.data.data.token )
             // localStorage.setItem("photo", res.data.data.photo )

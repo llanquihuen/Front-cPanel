@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable eqeqeq */
 import React,{useEffect, useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {useSelector} from 'react-redux';
@@ -35,6 +37,10 @@ const MyGallery = (routerProps) => {
     const [numeroItem, setNumeroItem] = useState(1)
     const [thisProduct, setThisProduct] = useState([])
 
+    if (listaPedido===null){
+        setListaPedido((window.localStorage.setItem('invitado','[]')))
+    }
+    
     const updateLista =()=>{
         setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     } 
