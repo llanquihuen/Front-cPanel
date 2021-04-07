@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable eqeqeq */
 import React,{useEffect, useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {useSelector} from 'react-redux';
