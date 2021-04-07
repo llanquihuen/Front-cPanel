@@ -6,9 +6,9 @@ const hereUrl="https://sakuranboshodo.cl/store2/"
 const ProductPortada =  ({post}) => {
     return (
         <div>
-        <div className="row center">
+        <div style={{width:'100%'}} >
          <div  className="card">
-             <div  style={{width:'100%'}} className="card-img">
+             <div  className="card-img">
                  <a href={`${hereUrl}products/`+post._id}>
                      <img className="medium" src={url+post.imageLocation[0]} alt="producto1" />
                  </a>
