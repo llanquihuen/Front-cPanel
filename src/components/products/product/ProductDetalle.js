@@ -16,7 +16,7 @@ import Footer from '../../Footer';
 import './detalle.css'
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const url = 'http://localhost:5000/products/'
+const url = 'https://sakuranboshodo.cl/test4/products/'
 const MyGallery = (routerProps) => {
   const [Product, setProduct] = useState([])
   const [Product2, setProduct2] = useState([])

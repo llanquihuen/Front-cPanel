@@ -1,7 +1,7 @@
 import React from 'react'
 
-const url ="http://localhost:5000/"
-const hereUrl="http://localhost:3000/"
+const url ="https://sakuranboshodo.cl/test4/"
+const hereUrl="https://sakuranboshodo.cl/store2/"
 
 const ProductPortada =  ({post}) => {
     return (

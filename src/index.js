@@ -10,13 +10,13 @@ import reducers from './components/redux/combineReducers'
 
 // import App from './App';
 // import Login from './Login'
-import Routes from './Routes.js'
+import Tienda from './Tienda.js'
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
 <Provider store={store}>   
- <Routes />
+ <Tienda />
  </Provider>,
   document.getElementById('root')
 );

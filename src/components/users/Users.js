@@ -122,7 +122,7 @@ scrollbar:{
 }));
 
 
-const Users = () => {
+const Users = (props) => {
     const inputRut = useRef(null);
     const classes = useStyles();
     const isMobile = useMediaQuery({ query: '(max-width: 360px)' })
@@ -190,16 +190,22 @@ const Users = () => {
     //     return x
     //     }
     // }
-    const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+    const listaPedido = props.lista
+    // const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
 
-    const updateLista =()=>{
-        setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
-    } 
+    // useEffect(() => {
+    //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    //     props.updateLista()
+    // }, [listaPedido])
+
+    // const updateLista =()=>{
+    //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    // } 
     
-    let storage=JSON.parse(window.localStorage.getItem('invitado'));
-    if (!storage){
-        storage=[]
-    }
+    // let storage=JSON.parse(window.localStorage.getItem('invitado'));
+    // if (!storage){
+    //     storage=[]
+    // }
     //Todos los Productos
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
 
@@ -208,7 +214,7 @@ const Users = () => {
     let intersection = posts.filter(el=> nums.includes(el._id))
     const preciosCantidad = intersection.map((post)=>{ 
         // eslint-disable-next-line eqeqeq
-        let store = storage.filter(el=> el._id==post._id)
+        let store = listaPedido.filter(el=> el._id==post._id)
         return post.price * store[0].cantidad})
 
     const sumaPrecios = preciosCantidad.reduce((a,b)=> a+b,0)
@@ -219,7 +225,7 @@ const Users = () => {
 
         return (
         <div style={{display:'flex', flexDirection:'column'}}>
-            <HeroSwiper updateLista={updateLista}/>
+            {/* <HeroSwiper updateLista={updateLista}/> */}
             <div style={{height:'100%',paddingBottom:'6rem',minHeight:'800px', background:'linear-gradient(125deg, rgba(251,168,179,.6) 0%, rgba(254,228,232,.6) 100%)'}}>
                 <h1 style={{textAlign:'center', margin:0, padding:'5rem'}}>DATOS PARA LA ENTREGA</h1>
                 <div    className={isMediumLong?classes.rootMobile:classes.root}>
@@ -251,7 +257,7 @@ const Users = () => {
                         <h2 style={{textAlign:'center'}}>Detalle Compra</h2>
                 {intersection.map((post)=>(
                     <Grid style={{ width:'80%', margin:'4rem auto'}}  key={post._id} item >
-                    <DetalleCompra post={post} storage={storage}/>
+                    <DetalleCompra post={post} storage={listaPedido}/>
                     </Grid>
                 ))}  
                 <p style={{ width:'80%', margin:'4rem auto', fontSize:'2em'}} >Total: {numberWithDots(sumaPrecios)}</p>    
@@ -260,7 +266,7 @@ const Users = () => {
                 </div>
            
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

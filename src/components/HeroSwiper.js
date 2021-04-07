@@ -48,10 +48,10 @@ const HeroSwiper = (este) => {
     const isFold = useMediaQuery({ query: '(max-width: 320px)' })
 
     // const [storage, setStorage] = useState([])
-    let storage=JSON.parse(window.localStorage.getItem('invitado'));
-    if (!storage){
-        storage=[]
-    }
+    let storage=este.lista;
+    // if (!storage){
+    //     storage=[]
+    // }
     // console.log(storage.length)
 
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
@@ -105,7 +105,7 @@ const HeroSwiper = (este) => {
             <div style={{display:'flex',flexDirection:'column', justifyContent:'space-between',margin:'1em'}}>
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
                 
-                <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em'}}>Comprar</Button>
+                <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em'}}>Comprar</Button>
             </div>
             
       </div>
@@ -151,7 +151,7 @@ const HeroSwiper = (este) => {
         </div>
         <div className="barra">
             <div>
-                <a style={{fontStyle:'italic',color:'#ffdddd',fontSize:isFold?'12px':"16px"}}href="/">sakuranbo.shodo_store </a>
+                <a style={{fontStyle:'italic',color:'#ffdddd',fontSize:isFold?'12px':"16px"}}href="/store2/">sakuranbo.shodo_store </a>
             </div>
             <div className="barra-flex-der">
                 <div className="iconos carroIcono">

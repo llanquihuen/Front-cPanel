@@ -7,8 +7,7 @@ import  "./post-style.css"
 // const getToken = {headers:{authorization: localStorage.getItem("token")} }
 // import Gallery from '../post/gallery'
 
-// const url = 'https://sakuranboshodo.cl/test2/'
-const url ='http://localhost:5000/';
+const url ='https://sakuranboshodo.cl/test4/';
 
 const Post = ({post, setCurrentId}) => {
     // console.log(post)

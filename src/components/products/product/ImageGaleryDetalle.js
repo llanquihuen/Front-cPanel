@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import { useMediaQuery } from 'react-responsive';
 import './detalle.css'
 
-const url = 'http://localhost:5000/'
+const url = 'https://sakuranboshodo.cl/test4/'
 
 const ImageGalerryDetalle = (props) => {
     // console.log(props.Product.imageLocation)

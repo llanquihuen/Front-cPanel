@@ -6,8 +6,7 @@ import { createPost,updatePost } from '../redux/actions';
 import './drag-form.css'
 
 
-// const url = 'https://sakuranboshodo.cl/test2/';
-const url ='http://localhost:5000/';
+const url ='https://sakuranboshodo.cl/test4/';
 const getToken = {headers:{authorization: localStorage.getItem("token")} }
 
 const Form = ({currentId, setCurrentId}) => {

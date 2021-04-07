@@ -8,6 +8,7 @@ import './App.css';
 import Posts from './components/posts/posts';
 
 function App() {
+
   const [currentId, setCurrentId] = useState(null)
 
   const dispatch = useDispatch();

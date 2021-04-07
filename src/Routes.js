@@ -16,24 +16,25 @@ const Routes = () => {
     useEffect(() => {
         dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
     }, [currentId, dispatch])
-
+    
     let direccion = Login
-
-        if (!localStorage.getItem("token")){
-            direccion=Login
-        }else{
-            direccion=App
-        }
+    
+    if (!localStorage.getItem("token")){
+        direccion=Login
+    }else{
+        direccion=App
+    }
+  
     return (
-    <BrowserRouter>
+        <BrowserRouter>
         <Switch>
-            <Route exact path='/loginproductos' component={direccion}/>
-            <Route exact path='/' component={Tienda}/>
+            <Route path='/store2' component={Tienda}/>
+            {/* <Route exact path='/store2/loginproductos' component={direccion}/> */}
+            <Route componkent={NotFound}/> 
             {/* <Route path='/products' setCurrentId={setCurrentId} component={Products} exact></Route> */}
-            <Route path='/products/:_id'   setCurrentId={setCurrentId} component={Details} exact></Route>
-            <Route path='/invitado' component={Users}/>
+            {/* <Route path='/products/:_id'   setCurrentId={setCurrentId} component={Details} exact></Route>
+            <Route path='/invitado/' component={Users}/> */}
 
-            <Route component={NotFound}/>
 
         </Switch>
     </BrowserRouter>

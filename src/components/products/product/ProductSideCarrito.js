@@ -1,8 +1,8 @@
 import React from 'react'
 import './sidecarrito.css'
 
-const url ="http://localhost:5000/"
-const hereUrl="http://localhost:3000/"
+const url ="https://sakuranboshodo.cl/test4/"
+const hereUrl="https://sakuranboshodo.cl/store2/"
 
 const ProductSideCarrito =  ({post, storage, este}) => {
 
