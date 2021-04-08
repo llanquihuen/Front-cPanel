@@ -213,12 +213,12 @@ const MyGallery = (routerProps) => {
                     <ImageGalleryDetalle Product={Product}/>
                 </div>
                 <div className={isMobile?'mobile-flex2':'flex2'}>
-                    <p style={{color:'purple', fontSize:'2.5em'}}>{Product.name}</p>
-                    <h3>Descripcion: {Product.descrip}</h3>
-                    <h4>Stock: {Product.stock}</h4>
-                    {thisProduct ? <h3>Cantidad en el carrito: {thisProduct.cantidad} </h3>:<></>}
+                    <p style={{color:'#333', fontSize:'2.5em'}}>{Product.name}</p>
+                    <p style={{color:'#333', fontSize:'calc(10px + 1.2vmin)', margin:'1em 0', lineHeight:'150%'}}>{Product.descrip}</p>
+                    <p style={{color:'#333', fontSize:'0.9em', marginTop:'1em'}}>Stock: {Product.stock}</p>
+                    {thisProduct ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {thisProduct.cantidad} </p>:<></>}
                     <br></br>
-                    <p style={{color:'purple', fontSize:'2.2em'}}>${Product.price}</p>
+                    <p style={{color:'mediumvioletred', fontSize:'2.2em', fontWeight:'bold', margin:'1rem 0 2rem 0'}}>${Product.price}</p>
 
                 <div>
                     <label htmlFor="cantidadP">Cantidad:</label><br/>
@@ -228,9 +228,10 @@ const MyGallery = (routerProps) => {
                     </div>
                 </div>
                 <br></br>
-                {listaPedido.length>0? <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em 0', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
+                {listaPedido.length>0? <Button href='/store2/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
 
-                {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px'}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
+                {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px', marginTop:20}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
+
 
 
 

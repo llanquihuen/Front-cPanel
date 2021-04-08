@@ -26,11 +26,12 @@ const ImageGalerryDetalle = (props) => {
         }
     }, [props])
     // console.log(Images)
+    
     return (
-        <div style={{height:'90%'}}className={isMobile? 'mobile':'long-screen'}>
+        <div className={isMobile? 'mobile':'long-screen'}>
 
             {props.Product.imageLocation? 
-            <div style={{height:'100%', display:'flex', alignItems:'center'}} >
+            <div style={{height:'100%', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:10}} >
                   <ImageGallery   showThumbnails={!isMobile} showBullets={isMobile} items={Images} useBrowserFullscreen={false} showPlayButton={false} /> 
             </div>
             : <div style={{height:'100%', display:'flex', alignItems:'center', justifyContent:'center', margin:'auto'}}>Cargando...</div>}

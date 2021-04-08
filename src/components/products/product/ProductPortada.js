@@ -8,7 +8,7 @@ const ProductPortada =  ({post}) => {
         <div>
         <div style={{width:'100%'}} >
          <div  className="card">
-             <div  className="card-img">
+             <div  style={{width:'100%'}} className="card-img">
                  <a href={`${hereUrl}products/`+post._id}>
                      <img className="medium" src={url+post.imageLocation[0]} alt="producto1" />
                  </a>

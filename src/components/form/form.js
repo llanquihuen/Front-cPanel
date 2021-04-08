@@ -10,7 +10,7 @@ const url ='https://sakuranboshodo.cl/test4/';
 const getToken = {headers:{authorization: localStorage.getItem("token")} }
 
 const Form = ({currentId, setCurrentId}) => {
-    console.log(currentId)
+    // console.log(currentId)
     const [postData, setPostData] = useState({
         name:"",
         price:"",
@@ -41,14 +41,14 @@ const Form = ({currentId, setCurrentId}) => {
         // }
         )
         .then(res=>{
-            console.log(postData)
+           // console.log(postData)
             let array0=res.data.createdProduct.photo.split(/\s*(?:,|$)\s*/)
             let array1=postData.imageLocation
-            console.log(postData)
+          // console.log(postData)
             array0.map((photo)=> array1.push(photo))
-            console.log(array1)
+          // console.log(array1)
             setPostData({...postData, imageLocation:array1})
-                console.log(postData)
+           // console.log(postData)
 
             currentId? dispatch(updatePost(currentId, postData)): console.log("new item")
             // axios.delete(`${url}images\\${res.data.createdProduct._id}`);
@@ -71,11 +71,7 @@ const Form = ({currentId, setCurrentId}) => {
         
     }, [file])
 
-    // useEffect(() => {
-        //     console.log(uploadPercentage)
-        // }, [uploadPercentage])
-    
-
+ 
     const handleSubmit=(e)=>{
         e.preventDefault();
         if(currentId){
@@ -116,13 +112,13 @@ const Form = ({currentId, setCurrentId}) => {
         setPostData({imageLocation:photos})
               if(currentId){
             dispatch(updatePost(currentId, postData))
-            console.log(postData)
+          //  console.log(postData)
         }else{
-            console.log(postData)
+          //  console.log(postData)
             dispatch(createPost(postData))
         }
         // console.log(e, index)
-        console.log(photos)
+        //console.log(photos)
     }
 
     const clickF=(e)=>{
@@ -131,17 +127,17 @@ const Form = ({currentId, setCurrentId}) => {
             photos.splice(index, 1)
             photos.unshift(e)
         }
-        console.log(photos)
+        //console.log(photos)
         setPostData({imageLocation:photos})
               if(currentId){
             dispatch(updatePost(currentId, postData))
-            console.log(postData)
+            //console.log(postData)
         }else{
-            console.log(postData)
+           // console.log(postData)
             dispatch(createPost(postData))
         }
         // console.log(e, index)
-        console.log(photos)
+        //console.log(photos)
     }
     if(postData.imageLocation === ""){setPostData({...postData,imageLocation:[]})}
 
@@ -150,7 +146,7 @@ const Form = ({currentId, setCurrentId}) => {
         
     }, [post,currentId])
     
-    console.log(postData)
+    //console.log(postData)
 
     // let strin1 = 'lolo'
     // console.log(strin1.split(" "))

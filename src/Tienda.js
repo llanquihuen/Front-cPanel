@@ -35,6 +35,21 @@ function Tienda() {
         setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     } 
     
+    //Logout token invalido
+    const currentTime = Date.now() /1000
+    const logOut = () =>{
+        localStorage.removeItem("token");
+        localStorage.removeItem("timeToken");
+
+        window.location.href='./'
+    }
+    
+    if(localStorage.getItem("timeToken")){
+    const timeLeft = (localStorage.getItem("timeToken")-currentTime+3600*1)
+    window.setTimeout(logOut, timeLeft*1000);
+    }
+    // console.log(listaPedido)
+
     
     let direccion = Login
 

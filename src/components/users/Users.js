@@ -248,7 +248,7 @@ const Users = (props) => {
                             <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:'25ch'}} required={true} label="Teléfono" variant="outlined" />
                         </div>
                         <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}} required={true} label="Dirección para la entrega" variant="outlined" />
-                        <Button style={{background:'pink', height:'5rem'}} size='large'>Comprar</Button>
+                        <Button style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar</Button>
                     </form>
                     </div>
                     {isMediumLong?  <hr style={{background:'white', width:'90%', borderColor:'pink'}}></hr>:<hr style={{background:pink[50],height:'80%', width:'4px', borderRadius:'5px',borderColor:pink[50], margin:'auto'}}></hr>}

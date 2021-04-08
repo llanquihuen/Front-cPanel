@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux';
 
 import Form from './components/form/form'
@@ -20,10 +20,61 @@ function App() {
       dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
   }, [currentId, dispatch])
   // console.log(currentId)
+  
+
+  //Time-out Token
+
+  const currentTime = Date.now() /1000
+
+  if (localStorage.getItem("timeToken")){
+
+  if ((localStorage.getItem("timeToken"))<(currentTime-3600*1)){
+      localStorage.removeItem("timeToken")
+      localStorage.removeItem("token")
+      localStorage.removeItem("photo")
+
+      window.location.href='./'
+  }}
+
+  // if (!localStorage.getItem("timeToken")){
+  //     localStorage.setItem("timeToken", currentTime)
+  // }
+
+
+  //Log-Out Timer
+  const timeLeft = (localStorage.getItem("timeToken")-currentTime+3600*1)
+  window.setTimeout(logOut, timeLeft*1000);
+
+   // Cuenta Regresiva useState + useRef + useEffect
+  const [num, setNum] = useState(timeLeft);
+  
+  const decreaseNum = () => setNum((prev) => prev - 1);
+  
+  let intervalRef = useRef();
+  
+  
+  useEffect(() => {
+      intervalRef.current = setInterval(decreaseNum, 1000);
+      return () => clearInterval(intervalRef.current);
+  }, []);
+
+  // Configuracion HH:MM:SS de cuenta regresiva  
+  let hours = Math.floor(num/3600);
+  let minutes = Math.floor(Math.floor(num) % 3600 /60).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+  });
+  let seconds = Math.floor(Math.floor(num) % 60).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+  })
+  let countdown = `${hours}:${minutes}:${seconds}`
+
   return (
     <div className="App">
-      <button className={'btns-post'} style={{position:'absolute',top:5,right:10,background:'pink',color:'black',fontSize:'calc(10px + 1.2vmin)'}} onClick={logOut}>Cerrar Sesion</button>
-      <header className="App-header">
+      <button className={'btns-post'} style={{height:40 ,paddingTop:'5px',position:'absolute',top:5,right:10,background:'pink',color:'black',fontSize:'calc(10px + 1.2vmin)'}} onClick={logOut}>Cerrar Sesion <p style={{marginTop:20}}>Tiempo restante:  {countdown}</p></button>
+    
+        <header className="App-header">
         <p style={{paddingTop:50}}>Base de Datos de los Productos de la tienda </p>
         Te amo mucho! 
 

@@ -105,7 +105,7 @@ const HeroSwiper = (este) => {
             <div style={{display:'flex',flexDirection:'column', justifyContent:'space-between',margin:'1em'}}>
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
                 
-                <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em'}}>Comprar</Button>
+                <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
             </div>
             
       </div>
