@@ -1,4 +1,4 @@
-import React,{useState, useRef, useEffect} from 'react'
+import React,{useState, useRef} from 'react'
 
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
@@ -190,30 +190,28 @@ const Users = (props) => {
     //     return x
     //     }
     // }
-     const listaPedido = props.lista
+    const listaPedido = props.lista
     // const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
-    // console.log(listaPedido)
-    // console.log(props.lista)
 
     // useEffect(() => {
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     //     props.updateLista()
     // }, [listaPedido])
-     
-    
+
+    // const updateLista =()=>{
+    //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    // } 
     
     // let storage=JSON.parse(window.localStorage.getItem('invitado'));
     // if (!storage){
     //     storage=[]
     // }
-    // console.log(storage)
     //Todos los Productos
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
 
     //Los que estan en localStorage
     const nums = listaPedido.map(item=>{return item._id}) // nums = [18,19,20]
     let intersection = posts.filter(el=> nums.includes(el._id))
-
     const preciosCantidad = intersection.map((post)=>{ 
         // eslint-disable-next-line eqeqeq
         let store = listaPedido.filter(el=> el._id==post._id)
@@ -259,7 +257,7 @@ const Users = (props) => {
                         <h2 style={{textAlign:'center'}}>Detalle Compra</h2>
                 {intersection.map((post)=>(
                     <Grid style={{ width:'80%', margin:'4rem auto'}}  key={post._id} item >
-                    <DetalleCompra post={post} storage={listaPedido} este={props.updateLista}/>
+                    <DetalleCompra post={post} storage={listaPedido}/>
                     </Grid>
                 ))}  
                 <p style={{ width:'80%', margin:'4rem auto', fontSize:'2em'}} >Total: {numberWithDots(sumaPrecios)}</p>    

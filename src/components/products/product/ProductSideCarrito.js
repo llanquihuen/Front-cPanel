@@ -1,8 +1,8 @@
 import React from 'react'
 import './sidecarrito.css'
 
-const url ="http://localhost:5000/"
-const hereUrl="http://localhost:3000/"
+const url ="https://sakuranboshodo.cl/test4/"
+const hereUrl="https://sakuranboshodo.cl/store2/"
 
 const ProductSideCarrito =  ({post, storage, este}) => {
 
@@ -131,7 +131,7 @@ const ProductSideCarrito =  ({post, storage, este}) => {
                     <div style={{display:'flex'}}>
 
                     <p>Cantidad: </p>
-                    {(intersection[0].cantidad == 1)?<p style={{background:'#bbb', marginLeft:10, marginRight:10, padding:'0 6px', borderRadius:10}}>-</p>:<p style={{background:'pink', marginLeft:10, marginRight:10, padding:'0 6px', borderRadius:10,cursor:'pointer'}} onClick={(substrFromCartHandler)}>-</p>}
+                    {(intersection[0].cantidad === 1)?<p style={{background:'#bbb', marginLeft:10, marginRight:10, padding:'0 6px', borderRadius:10}}>-</p>:<p style={{background:'pink', marginLeft:10, marginRight:10, padding:'0 6px', borderRadius:10,cursor:'pointer'}} onClick={(substrFromCartHandler)}>-</p>}
                     <p>{intersection[0].cantidad}</p>
                     {(post.stock> intersection[0].cantidad)?<p style={{background:'pink', marginLeft:10, padding:'0 6px', borderRadius:10,cursor:'pointer'}} onClick={(addToCartHandler)}>+</p>:<p style={{background:'#bbb', marginLeft:10, padding:'0 6px', borderRadius:10}}>+</p>}
                     </div>

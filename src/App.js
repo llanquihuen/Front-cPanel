@@ -8,22 +8,19 @@ import './App.css';
 import Posts from './components/posts/posts';
 
 function App() {
+
   const [currentId, setCurrentId] = useState(null)
 
   const dispatch = useDispatch();
   const logOut = () =>{
     localStorage.removeItem("token");
-    localStorage.removeItem("timeToken");
-
     window.location.href='./loginproductos'
 }
   useEffect(() => {
       dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
   }, [currentId, dispatch])
   // console.log(currentId)
-
-
-
+  
 
   //Time-out Token
 
@@ -76,8 +73,8 @@ function App() {
   return (
     <div className="App">
       <button className={'btns-post'} style={{height:40 ,paddingTop:'5px',position:'absolute',top:5,right:10,background:'pink',color:'black',fontSize:'calc(10px + 1.2vmin)'}} onClick={logOut}>Cerrar Sesion <p style={{marginTop:20}}>Tiempo restante:  {countdown}</p></button>
-      
-      <header className="App-header">
+    
+        <header className="App-header">
         <p style={{paddingTop:50}}>Base de Datos de los Productos de la tienda </p>
         Te amo mucho! 
 

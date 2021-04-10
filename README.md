@@ -2,4 +2,4 @@
 
 ## To do List 
 
-- Add redux users
+- Add redux users.

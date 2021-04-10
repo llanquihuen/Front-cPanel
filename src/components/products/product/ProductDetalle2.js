@@ -20,13 +20,12 @@ import Footer from '../../Footer';
 import './detalle.css'
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const url = 'http://localhost:5000/products/'
+const url = 'https://sakuranboshodo.cl/test4/products/'
 const MyGallery = (routerProps) => {
-    console.log(routerProps.lista)
-
     //Productos
     const [Product, setProduct] = useState([])
     const [Redirect, setRedirect] = useState(false)
+
 
     useEffect(() => {
         axios.get(`${url}${routerProps.match.params._id}`)
@@ -36,16 +35,18 @@ const MyGallery = (routerProps) => {
             }else{
                 setRedirect(true)
             }
-             })
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    console.log(Product)
+
     const [Product2, setProduct2] = useState([])
-    const [listaPedido, setListaPedido] = useState(routerProps.lista)
+    const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
     const [numeroItem, setNumeroItem] = useState(1)
     const [thisProduct, setThisProduct] = useState([])
 
-
+    if (listaPedido===null){
+        setListaPedido((window.localStorage.setItem('invitado','[]')))
+    }
 
     // const updateLista =()=>{
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
@@ -199,10 +200,13 @@ const MyGallery = (routerProps) => {
     routerProps.updateLista()
 
   }, [esteProduct,listaPedido])
-    console.log(Redirect)
+
+//   console.log(esteProduct+'-------------------------')
+
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
-       {Redirect? <NotFound />: 
+        {Redirect? <NotFound />: 
+
         <div className='body-detalle'>
             <div style={{position:'relative'}}className={isMobile?'box-mobile-detalle':'box-detalle'} >
                 <div className={isMobile?'mobile-flex1':'flex1'}>
@@ -224,9 +228,10 @@ const MyGallery = (routerProps) => {
                     </div>
                 </div>
                 <br></br>
-                {listaPedido.length>0? <Button href='/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
+                {listaPedido.length>0? <Button href='/store2/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
 
                 {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px', marginTop:20}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
+
 
 
 
@@ -249,8 +254,6 @@ const MyGallery = (routerProps) => {
             </div>
         </div>
         }
-        {/* <Footer /> */}
-
         </>
     )
 }

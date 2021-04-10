@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
 import { Swiper, SwiperSlide,  } from 'swiper/react';
-import {BrowserRouter,Link, Switch} from 'react-router-dom'
 import SwiperCore, {Autoplay} from 'swiper';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,7 +33,7 @@ const useStyles = makeStyles({
       minWidth:250,
       width: '35vw',
       height:'100%',
-      //borderLeft:'2px solid #777',
+      // borderLeft:'2px solid #777',
       maxWidth:500,
       background:'rgb(252, 235, 235)',
       
@@ -54,7 +53,7 @@ const HeroSwiper = (este) => {
     //     storage=[]
     // }
     // console.log(storage.length)
-    console.log(este)
+
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
     // console.log(posts)
     const nums = storage.map(item=>{return item._id}) // nums = [18,19,20]
@@ -95,7 +94,7 @@ const HeroSwiper = (este) => {
         
       >
        <h1 style={{textAlign:'center', margin:0,paddingBlockStart:'0.9em',paddingBlockEnd:'0.67em', background:'black',color:'whitesmoke'}}>Carrito</h1>
-            <Grid style={{width:'100%',display:'flex',flexDirection:'column', background:'rgb(252, 235, 235)',paddingTop:'1em', alignContent:'space-between', borderTop:'3px solid #777'}} container spacing={0}>
+            <Grid style={{width:'100%',display:'flex',flexDirection:'column',paddingTop:'1em', alignContent:'space-between', borderTop:'3px solid #777'}} container spacing={0}>
                 {intersection.map((post)=>(
                     <Grid style={{ width:'100%'}}  key={post._id} item >
                     <ProductSideCarrito post={post} storage={storage} este={este}/>
@@ -103,10 +102,10 @@ const HeroSwiper = (este) => {
                 ))}
            
             </Grid>
-            <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',background:'rgb(252, 235, 235)',padding:'1em'}}>
+            <div style={{display:'flex',flexDirection:'column', justifyContent:'space-between',margin:'1em'}}>
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
                 
-                <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
+                <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
             </div>
             
       </div>
@@ -152,13 +151,7 @@ const HeroSwiper = (este) => {
         </div>
         <div className="barra">
             <div>
-            {/* <BrowserRouter>
-            <Switch>           
-                     <Link to="/">About</Link>
-            </Switch>
-
-            </BrowserRouter> */}
-                <a style={{fontStyle:'italic',color:'#ffdddd',fontSize:isFold?'12px':"16px"}}href="/">sakuranbo.shodo_store </a>
+                <a style={{fontStyle:'italic',color:'#ffdddd',fontSize:isFold?'12px':"16px"}}href="/store2/">sakuranbo.shodo_store </a>
             </div>
             <div className="barra-flex-der">
                 <div className="iconos carroIcono">

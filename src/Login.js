@@ -9,7 +9,7 @@ import imagenCamila from './views/images/logo.png'
 
 
 
-const baseUrl="http://localhost:5000/auth/login";
+const baseUrl="https://sakuranboshodo.cl/test4/auth/login";
 // const baseUrl="https://organizarclientes-github.herokuapp.com/auth/login";
 
 
@@ -50,7 +50,7 @@ const Login = () => {
             if(res.data.data.token){
             localStorage.setItem("token", "Bearer "+ res.data.data.token )
             localStorage.setItem("timeToken", currentTime)
-            
+
             // localStorage.setItem("photo", res.data.data.photo )
             // localStorage.setItem("id",res.data.id)
 
@@ -92,7 +92,7 @@ const Login = () => {
                 <TextField style={{marginBottom:20}} name="username" variant="outlined" label="Nombre" fullWidth  onClick={(e)=> setDatos ({...datos, username:e.target.value}) }    onChange={(e)=> setDatos ({...datos, username:e.target.value})}/>
                 <TextField id="inputPass" style={{marginBottom:20}} name="password" variant="outlined" type='password' label="Password" fullWidth  onChange={(e)=> setDatos ({...datos, password:e.target.value })}/>
                       </ThemeProvider>
-                            <div>{!loading? "Usuario: luis1 - Contraseña: lalala": ""}</div>
+                            {/* <div>{!loading? "Usuario: luis1 - Contraseña: lalala": ""}</div> */}
                             <div>{loading? "Espere un momento...": " "}</div>
                             <div>{unerror? "Contraseña o usuario incorrecto": " "}</div>
                 <Button id="botonLogin" style={{background:'crimson', color:'snow'}} variant="contained" color="primary" size="large"  onClick={()=>iniciarSesion(datos)} fullWidth>Aceptar</Button>
