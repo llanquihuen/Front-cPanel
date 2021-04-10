@@ -33,7 +33,7 @@ const useStyles = makeStyles({
       minWidth:250,
       width: '35vw',
       height:'100%',
-      borderLeft:'2px solid #777',
+      // borderLeft:'2px solid #777',
       maxWidth:500,
       background:'rgb(252, 235, 235)',
       
