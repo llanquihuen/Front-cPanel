@@ -1,4 +1,4 @@
-import React,{useState, useRef} from 'react'
+import React,{useState, useRef, useEffect} from 'react'
 
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
@@ -122,7 +122,7 @@ scrollbar:{
 }));
 
 
-const Users = () => {
+const Users = (props) => {
     const inputRut = useRef(null);
     const classes = useStyles();
     const isMobile = useMediaQuery({ query: '(max-width: 360px)' })
@@ -190,25 +190,33 @@ const Users = () => {
     //     return x
     //     }
     // }
-    const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+     const listaPedido = props.lista
+    // const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+    // console.log(listaPedido)
+    // console.log(props.lista)
 
-    const updateLista =()=>{
-        setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
-    } 
+    // useEffect(() => {
+    //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    //     props.updateLista()
+    // }, [listaPedido])
+     
     
-    let storage=JSON.parse(window.localStorage.getItem('invitado'));
-    if (!storage){
-        storage=[]
-    }
+    
+    // let storage=JSON.parse(window.localStorage.getItem('invitado'));
+    // if (!storage){
+    //     storage=[]
+    // }
+    // console.log(storage)
     //Todos los Productos
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
 
     //Los que estan en localStorage
     const nums = listaPedido.map(item=>{return item._id}) // nums = [18,19,20]
     let intersection = posts.filter(el=> nums.includes(el._id))
+
     const preciosCantidad = intersection.map((post)=>{ 
         // eslint-disable-next-line eqeqeq
-        let store = storage.filter(el=> el._id==post._id)
+        let store = listaPedido.filter(el=> el._id==post._id)
         return post.price * store[0].cantidad})
 
     const sumaPrecios = preciosCantidad.reduce((a,b)=> a+b,0)
@@ -219,7 +227,7 @@ const Users = () => {
 
         return (
         <div style={{display:'flex', flexDirection:'column'}}>
-            <HeroSwiper updateLista={updateLista}/>
+            {/* <HeroSwiper updateLista={updateLista}/> */}
             <div style={{height:'100%',paddingBottom:'6rem',minHeight:'800px', background:'linear-gradient(125deg, rgba(251,168,179,.6) 0%, rgba(254,228,232,.6) 100%)'}}>
                 <h1 style={{textAlign:'center', margin:0, padding:'5rem'}}>DATOS PARA LA ENTREGA</h1>
                 <div    className={isMediumLong?classes.rootMobile:classes.root}>
@@ -242,7 +250,7 @@ const Users = () => {
                             <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:'25ch'}} required={true} label="Teléfono" variant="outlined" />
                         </div>
                         <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}} required={true} label="Dirección para la entrega" variant="outlined" />
-                        <Button style={{background:'pink', height:'5rem'}} size='large'>Comprar</Button>
+                        <Button style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar</Button>
                     </form>
                     </div>
                     {isMediumLong?  <hr style={{background:'white', width:'90%', borderColor:'pink'}}></hr>:<hr style={{background:pink[50],height:'80%', width:'4px', borderRadius:'5px',borderColor:pink[50], margin:'auto'}}></hr>}
@@ -251,7 +259,7 @@ const Users = () => {
                         <h2 style={{textAlign:'center'}}>Detalle Compra</h2>
                 {intersection.map((post)=>(
                     <Grid style={{ width:'80%', margin:'4rem auto'}}  key={post._id} item >
-                    <DetalleCompra post={post} storage={storage}/>
+                    <DetalleCompra post={post} storage={listaPedido} este={props.updateLista}/>
                     </Grid>
                 ))}  
                 <p style={{ width:'80%', margin:'4rem auto', fontSize:'2em'}} >Total: {numberWithDots(sumaPrecios)}</p>    
@@ -260,7 +268,7 @@ const Users = () => {
                 </div>
            
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

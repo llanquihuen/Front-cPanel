@@ -10,6 +10,7 @@ import NotFound from './NotFound'
 import Users from './components/users/Users'
 // import Products from './components/products/Products'
 import Details from './components/products/product/ProductDetalle2'
+
 const Routes = () => {
     const [currentId, setCurrentId] = useState(null)
     const dispatch = useDispatch();
@@ -28,11 +29,7 @@ const Routes = () => {
     <BrowserRouter>
         <Switch>
             <Route exact path='/loginproductos' component={direccion}/>
-            <Route exact path='/' component={Tienda}/>
-            {/* <Route path='/products' setCurrentId={setCurrentId} component={Products} exact></Route> */}
-            <Route path='/products/:_id'   setCurrentId={setCurrentId} component={Details} exact></Route>
-            <Route path='/invitado' component={Users}/>
-
+            <Route path='/'component={Tienda}/>
             <Route component={NotFound}/>
 
         </Switch>

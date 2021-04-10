@@ -38,6 +38,7 @@ const Login = () => {
     //     console.log(datos)
     //     }, [datos])
 
+    const currentTime = Date.now() /1000
 
     const iniciarSesion= async(dat)=>{
         setLoading(true)
@@ -48,6 +49,8 @@ const Login = () => {
             window.location.href="./loginproductos"
             if(res.data.data.token){
             localStorage.setItem("token", "Bearer "+ res.data.data.token )
+            localStorage.setItem("timeToken", currentTime)
+            
             // localStorage.setItem("photo", res.data.data.photo )
             // localStorage.setItem("id",res.data.id)
 

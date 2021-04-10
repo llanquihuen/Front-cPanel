@@ -11,7 +11,7 @@ const url ='http://localhost:5000/';
 const getToken = {headers:{authorization: localStorage.getItem("token")} }
 
 const Form = ({currentId, setCurrentId}) => {
-    console.log(currentId)
+    // console.log(currentId)
     const [postData, setPostData] = useState({
         name:"",
         price:"",
@@ -151,7 +151,7 @@ const Form = ({currentId, setCurrentId}) => {
         
     }, [post,currentId])
     
-    console.log(postData)
+    // console.log(postData)
 
     // let strin1 = 'lolo'
     // console.log(strin1.split(" "))

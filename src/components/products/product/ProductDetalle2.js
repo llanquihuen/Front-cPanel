@@ -6,6 +6,8 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {Button, Grid} from '@material-ui/core'
 import {pink}from '@material-ui/core/colors'
+import NotFound from '../../../NotFound'
+
 
 
 import ProductPortada from './ProductPortada'
@@ -20,30 +22,34 @@ import "react-image-gallery/styles/css/image-gallery.css";
 
 const url = 'http://localhost:5000/products/'
 const MyGallery = (routerProps) => {
+    console.log(routerProps.lista)
+
     //Productos
     const [Product, setProduct] = useState([])
+    const [Redirect, setRedirect] = useState(false)
 
     useEffect(() => {
         axios.get(`${url}${routerProps.match.params._id}`)
         .then(res =>{
-        setProduct(res.data[0])
-
-        })
+            if (res.data[0]!==undefined){
+                setProduct(res.data[0])
+            }else{
+                setRedirect(true)
+            }
+             })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    console.log(Product)
     const [Product2, setProduct2] = useState([])
-    const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
+    const [listaPedido, setListaPedido] = useState(routerProps.lista)
     const [numeroItem, setNumeroItem] = useState(1)
     const [thisProduct, setThisProduct] = useState([])
 
-    if (listaPedido===null){
-        setListaPedido((window.localStorage.setItem('invitado','[]')))
-    }
-    
-    const updateLista =()=>{
-        setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
-    } 
+
+
+    // const updateLista =()=>{
+    //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
+    // }
 
 
     let esteProduct=""
@@ -190,25 +196,25 @@ const MyGallery = (routerProps) => {
     let aZero = listaPedido.filter(item=>{return item.cantidad != 0})
     console.log(aZero)
     window.localStorage.setItem('invitado', JSON.stringify(aZero));
+    routerProps.updateLista()
 
   }, [esteProduct,listaPedido])
-
-//   console.log(esteProduct+'-------------------------')
-
+    console.log(Redirect)
     return (<>
-        <HeroSwiper updateLista={updateLista}/>
+        {/* <HeroSwiper updateLista={updateLista}/> */}
+       {Redirect? <NotFound />: 
         <div className='body-detalle'>
             <div style={{position:'relative'}}className={isMobile?'box-mobile-detalle':'box-detalle'} >
                 <div className={isMobile?'mobile-flex1':'flex1'}>
                     <ImageGalleryDetalle Product={Product}/>
                 </div>
                 <div className={isMobile?'mobile-flex2':'flex2'}>
-                    <p style={{color:'purple', fontSize:'2.5em'}}>{Product.name}</p>
-                    <h3>Descripcion: {Product.descrip}</h3>
-                    <h4>Stock: {Product.stock}</h4>
-                    {thisProduct ? <h3>Cantidad en el carrito: {thisProduct.cantidad} </h3>:<></>}
+                    <p style={{color:'#333', fontSize:'2.5em'}}>{Product.name}</p>
+                    <p style={{color:'#333', fontSize:'calc(10px + 1.2vmin)', margin:'1em 0', lineHeight:'150%'}}>{Product.descrip}</p>
+                    <p style={{color:'#333', fontSize:'0.9em', marginTop:'1em'}}>Stock: {Product.stock}</p>
+                    {thisProduct ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {thisProduct.cantidad} </p>:<></>}
                     <br></br>
-                    <p style={{color:'purple', fontSize:'2.2em'}}>${Product.price}</p>
+                    <p style={{color:'mediumvioletred', fontSize:'2.2em', fontWeight:'bold', margin:'1rem 0 2rem 0'}}>${Product.price}</p>
 
                 <div>
                     <label htmlFor="cantidadP">Cantidad:</label><br/>
@@ -218,9 +224,9 @@ const MyGallery = (routerProps) => {
                     </div>
                 </div>
                 <br></br>
-                {listaPedido.length>0? <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em 0', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
+                {listaPedido.length>0? <Button href='/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
 
-                {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px'}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
+                {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px', marginTop:20}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
 
 
 
@@ -242,7 +248,8 @@ const MyGallery = (routerProps) => {
                 <></>}
             </div>
         </div>
-        <Footer />
+        }
+        {/* <Footer /> */}
 
         </>
     )

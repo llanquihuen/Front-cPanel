@@ -56,6 +56,8 @@
     color:white;
   }
   .image-gallery-thumbnails {
+    width: 450px;
+    margin: auto;
     overflow-x: scroll !important;
   }
   
@@ -63,21 +65,21 @@
     width: 7px;
   }
 
-/*   
-  .image-gallery-thumbnails::-webkit-scrollbar-track {
-    box-shadow: inset 4px 4px 5px rgb(88, 27, 27); 
+  
+  /* .image-gallery-thumbnails::-webkit-scrollbar-track {
+    box-shadow: inset 4px 4px 5px rgb(88, 27, 27,0); 
     border-radius: 10px;
-    border:1px solid rgb(153, 153, 153);
+    border:0px solid rgb(153, 153, 153);
   }
   .image-gallery-thumbnails::-webkit-scrollbar-thumb {
-    background: rgb(255, 77, 107);
-    border: 1px solid palevioletred;
-    box-shadow: inset 4px 4px 5px rgb(255, 255, 255); 
+    background: rgb(255, 77, 107,0);
+    border: 1px solid #ff000033;
+    box-shadow: inset 4px 4px 5px rgb(255, 255, 255,.8); 
 
     border-radius: 10px;
 
-  } 
-  */
+  }  */
+ 
 
   @keyframes slidezoom {
       from {transform:(1,1)}

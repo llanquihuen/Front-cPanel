@@ -6,7 +6,7 @@ const hereUrl="http://localhost:3000/"
 const ProductPortada =  ({post}) => {
     return (
         <div>
-        <div className="row center">
+        <div style={{width:'100%'}}>
          <div  className="card">
              <div  style={{width:'100%'}} className="card-img">
                  <a href={`${hereUrl}products/`+post._id}>
