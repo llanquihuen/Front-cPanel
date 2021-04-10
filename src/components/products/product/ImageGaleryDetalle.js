@@ -32,7 +32,7 @@ const ImageGalerryDetalle = (props) => {
 
             {props.Product.imageLocation? 
             <div style={{height:'100%', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:10}} >
-                  <ImageGallery  showThumbnails={!isMobile} showBullets={isMobile} items={Images} useBrowserFullscreen={false} showPlayButton={false} /> 
+                <ImageGallery   showThumbnails={!isMobile} showBullets={isMobile} items={Images} useBrowserFullscreen={false} showPlayButton={false} /> 
             </div>
             : <div style={{height:'100%', display:'flex', alignItems:'center', justifyContent:'center', margin:'auto'}}>Cargando...</div>}
         </div>
