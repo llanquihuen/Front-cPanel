@@ -12,6 +12,7 @@ textarea{
     overflow-y: hidden;
     border-radius: 8px;
 }
+
 textarea:focus{
     outline: none;
 }

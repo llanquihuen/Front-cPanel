@@ -22,8 +22,6 @@ import "react-image-gallery/styles/css/image-gallery.css";
 
 const url = 'http://localhost:5000/products/'
 const MyGallery = (routerProps) => {
-    console.log(routerProps.lista)
-
     //Productos
     const [Product, setProduct] = useState([])
     const [Redirect, setRedirect] = useState(false)
@@ -39,7 +37,7 @@ const MyGallery = (routerProps) => {
              })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    console.log(Product)
+
     const [Product2, setProduct2] = useState([])
     const [listaPedido, setListaPedido] = useState(routerProps.lista)
     const [numeroItem, setNumeroItem] = useState(1)
@@ -199,10 +197,10 @@ const MyGallery = (routerProps) => {
     routerProps.updateLista()
 
   }, [esteProduct,listaPedido])
-    console.log(Redirect)
+
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
-       {Redirect? <NotFound />: 
+        {Redirect? <NotFound />: 
         <div className='body-detalle'>
             <div style={{position:'relative'}}className={isMobile?'box-mobile-detalle':'box-detalle'} >
                 <div className={isMobile?'mobile-flex1':'flex1'}>
@@ -249,8 +247,6 @@ const MyGallery = (routerProps) => {
             </div>
         </div>
         }
-        {/* <Footer /> */}
-
         </>
     )
 }
