@@ -26,7 +26,6 @@ const MyGallery = (routerProps) => {
     const [Product, setProduct] = useState([])
     const [Redirect, setRedirect] = useState(false)
 
-
     useEffect(() => {
         axios.get(`${url}${routerProps.match.params._id}`)
         .then(res =>{
@@ -201,8 +200,6 @@ const MyGallery = (routerProps) => {
 
   }, [esteProduct,listaPedido])
 
-//   console.log(esteProduct+'-------------------------')
-
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
         {Redirect? <NotFound />: 
@@ -231,7 +228,6 @@ const MyGallery = (routerProps) => {
                 {listaPedido.length>0? <Button href='/store2/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
 
                 {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px', marginTop:20}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
-
 
 
 
