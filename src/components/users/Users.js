@@ -373,7 +373,7 @@ const Users = (props) => {
                         <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15, paddingBottom:10}}} required={true} label="Dirección" variant="outlined" onChange={(e)=> setUserData({...userData, direccion:e.target.value})} />
                         {envio!==0?<p></p>: userData.region==='Región Metropolitana de Santiago'?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago urbano por pagar en Starken</p>:<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago por pagar en Starken</p>}
 
-                        <Button style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
+                        <Button href='/pago' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
                         <div style={{height:'50px'}}></div>
 
                     </form>
