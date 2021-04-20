@@ -45,8 +45,11 @@ function App() {
 
 
   //Log-Out Timer
+  
   const timeLeft = (localStorage.getItem("timeToken")-currentTime+3600*1)
-  window.setTimeout(logOut, timeLeft*1000);
+  if(localStorage.getItem("timeToken")){
+    window.setTimeout(logOut, timeLeft*1000);
+  }
 
    // Cuenta Regresiva useState + useRef + useEffect
   const [num, setNum] = useState(timeLeft);

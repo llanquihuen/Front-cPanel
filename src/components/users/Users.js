@@ -1,5 +1,6 @@
 import React,{useState, useRef, useEffect} from 'react'
 
+import axios from 'axios';
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {pink} from '@material-ui/core/colors'
@@ -9,6 +10,11 @@ import { useMediaQuery } from 'react-responsive';
 import HeroSwiper from '../HeroSwiper';
 import Footer from '../Footer';
 import DetalleCompra from '../products/product/DetalleCompra';
+
+const url ='http://localhost:5000/clientes';
+const url2 ='http://localhost:5000/compras';
+
+
 
 let testMail=true
 let testRut=true
@@ -310,6 +316,7 @@ const Users = (props) => {
     const lookUp =(name)=>{
         for(let i=0;i<RegionesYcomunas.regiones.length;i++){
             if (RegionesYcomunas.regiones[i].NombreRegion===name){
+                // .sort(Intl.Collator().compare Es para que ordene alfabeticamente la ñ y los acentos donde debería.
                 return RegionesYcomunas.regiones[i].comunas.sort(Intl.Collator().compare)
             }
         }
@@ -325,8 +332,36 @@ const Users = (props) => {
               envio=3000
           }
       }
-    //   console.log(RegionesYcomunas.regiones[2].NombreRegion)
 
+
+
+        const [completeTodo, setcompleteTodo] = useState(false)
+        const handleButton =()=>{
+            if(userData.comuna===""||userData.direccion===""||userData.nombre===""||userData.rut===""||userData.email===""||!testRut||!testMail||userData.telefono===""){
+                setcompleteTodo(true)
+                console.log("nop", completeTodo)
+            }else{
+                const createCliente = (f) => axios.post(url, f);
+                const createCompra = (x) => axios.post(url2, x);
+                // window.location.href='./pago'
+                let dataTemp = JSON.stringify(userData)
+                localStorage.setItem("clientetemporal",dataTemp)
+                let dataCompra = localStorage.getItem("invitado");
+                let jsonCompra = {"detalleCompra":dataCompra,"idCliente":userData.rut,"direccion":userData.direccion}
+                console.log(userData)
+                // console.log(jsonCompra)
+                createCliente (userData)
+                createCompra(jsonCompra)
+            }
+        }
+      useEffect(() => {
+            if (localStorage.getItem("clientetemporal")){
+                let objeto = JSON.parse(localStorage.getItem("clientetemporal"))
+                console.log(objeto.nombre)
+                setUserData({...userData,nombre:objeto.nombre,rut:objeto.rut,direccion:objeto.direccion, telefono:objeto.telefono, email:objeto.email,region:objeto.region, comuna:objeto.comuna})
+            }
+        }, [])
+        console.log(userData)
         return (
         <div style={{display:'flex', flexDirection:'column'}}>
             {/* <HeroSwiper updateLista={updateLista}/> */}
@@ -338,7 +373,7 @@ const Users = (props) => {
                         <h2 style={{textAlign:'center'}}>Completa el formulario para el envío</h2>
                     <form style={{display:'flex',flexDirection:'column',gap:17,height:'100%'}}className={classes.root2} noValidate autoComplete="off">
                         
-                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}}  required={true} label="Nombre" variant="outlined" value={userData.name} onChange={(e)=> setUserData({...userData, nombre:e.target.value})}/>
+                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}}  required={true} label="Nombre" variant="outlined" value={userData.nombre} onChange={(e)=> setUserData({...userData, nombre:e.target.value})}/>
                         <div>
                         <TextField inputProps={{style: {fontSize: 16}}}  style={{width:isSmall?'100%':'35ch'}} InputLabelProps={{style: {fontSize: 15}}} className={testMail? classes.sisisi:classes.nonono} required={true} label="Email" variant="outlined" value={userData.email} onChange={(e)=>validateEmail(e.target.value)} />
                         {!testMail?<p style={{height:0,padding:'0 5', marginBottom:17, color:'crimson'}}>Escriba un mail válido</p>:<></>}
@@ -349,7 +384,7 @@ const Users = (props) => {
                             <TextField inputProps={{maxLength: 12, style: {fontSize:isMobile?15:16, paddingLeft:isMobile?8:'auto', paddingRight:8,}}}  className={testRut? classes.sisisi:classes.nonono} InputLabelProps={{style: {fontSize: 15}}} style={{width:isSmall?'100%':'25ch'}} ref={inputRut}  onBlur={(e)=>puntosYGuion(e.target.value)} required={true} label="RUT" variant="outlined" value={userData.rut} onChange={(e)=>validateRut(e.target.value)}  />
                             {!testRut?<p style={{height:0,padding:'0 5', marginBottom:17,color:'crimson'}}>Escriba un RUT válido</p>:<></>}
                             </div>
-                            <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:isSmall?'100%':'25ch'}} required={true} label="Teléfono" variant="outlined" onChange={(e)=> setUserData({...userData, telefono:e.target.value})} />
+                            <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:isSmall?'100%':'25ch'}} required={true} label="Teléfono" variant="outlined" value={userData.telefono} onChange={(e)=> setUserData({...userData, telefono:e.target.value})} />
                         </div>
                         
                         <NativeSelect required={true} style={{marginBottom:15}}inputProps={{style:{fontSize:15, paddingBottom:18, paddingLeft:16}, /*MenuProps: {disableScrollLock: true}*/}} id="select" label="Región" value={userData.region} onChange={(e)=> setUserData({...userData, region:e.target.value})}>
@@ -370,10 +405,10 @@ const Users = (props) => {
                         ))}
                         </NativeSelect>:<></>}
             
-                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15, paddingBottom:10}}} required={true} label="Dirección" variant="outlined" onChange={(e)=> setUserData({...userData, direccion:e.target.value})} />
+                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15, paddingBottom:10}}} required={true} label="Dirección" value={userData.direccion} variant="outlined" onChange={(e)=> setUserData({...userData, direccion:e.target.value})} />
                         {envio!==0?<p></p>: userData.region==='Región Metropolitana de Santiago'?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago urbano por pagar en Starken</p>:<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago por pagar en Starken</p>}
-
-                        <Button href='/pago' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
+                            {completeTodo?<p style={{color:'crimson', backgroundColor:'#ddd', padding:'1rem 0', textAlign:'center', border:'1px solid black', borderRadius:5}}>Debe completar el formulario con todos los datos</p> : <></>}
+                        <Button /*href='/pago'*/ onClick={handleButton} style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
                         <div style={{height:'50px'}}></div>
 
                     </form>
