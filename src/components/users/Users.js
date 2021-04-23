@@ -336,32 +336,42 @@ const Users = (props) => {
 
 
         const [completeTodo, setcompleteTodo] = useState(false)
+        const [completeTodo2, setcompleteTodo2] = useState(false)
+
         const handleButton =()=>{
+            setcompleteTodo(false)
             if(userData.comuna===""||userData.direccion===""||userData.nombre===""||userData.rut===""||userData.email===""||!testRut||!testMail||userData.telefono===""){
                 setcompleteTodo(true)
                 console.log("nop", completeTodo)
+            }else if(localStorage.getItem("invitado")==="[]"){
+                setcompleteTodo2(true)
             }else{
                 const createCliente = (f) => axios.post(url, f);
                 const createCompra = (x) => axios.post(url2, x);
-                // window.location.href='./pago'
                 let dataTemp = JSON.stringify(userData)
                 localStorage.setItem("clientetemporal",dataTemp)
                 let dataCompra = localStorage.getItem("invitado");
-                let jsonCompra = {"detalleCompra":dataCompra,"idCliente":userData.rut,"direccion":userData.direccion}
-                console.log(userData)
+                let jsonCompra = {"detalleCompra":dataCompra,"email":userData.email,"direccion":userData.direccion, "nombre":userData.nombre}
+
+                sessionStorage.setItem("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,"").replace('"[','[').replace(']"',']'))
+                // console.log("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,""))
+                // console.log(userData)
                 // console.log(jsonCompra)
                 createCliente (userData)
                 createCompra(jsonCompra)
+                window.localStorage.removeItem('invitado');
+                window.location.href='./pago'
+                
             }
         }
       useEffect(() => {
             if (localStorage.getItem("clientetemporal")){
                 let objeto = JSON.parse(localStorage.getItem("clientetemporal"))
-                console.log(objeto.nombre)
+                // console.log(objeto.nombre)
                 setUserData({...userData,nombre:objeto.nombre,rut:objeto.rut,direccion:objeto.direccion, telefono:objeto.telefono, email:objeto.email,region:objeto.region, comuna:objeto.comuna})
             }
         }, [])
-        console.log(userData)
+        // console.log(userData)
         return (
         <div style={{display:'flex', flexDirection:'column'}}>
             {/* <HeroSwiper updateLista={updateLista}/> */}
@@ -407,7 +417,9 @@ const Users = (props) => {
             
                         <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15, paddingBottom:10}}} required={true} label="Dirección" value={userData.direccion} variant="outlined" onChange={(e)=> setUserData({...userData, direccion:e.target.value})} />
                         {envio!==0?<p></p>: userData.region==='Región Metropolitana de Santiago'?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago urbano por pagar en Starken</p>:<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago por pagar en Starken</p>}
-                            {completeTodo?<p style={{color:'crimson', backgroundColor:'#ddd', padding:'1rem 0', textAlign:'center', border:'1px solid black', borderRadius:5}}>Debe completar el formulario con todos los datos</p> : <></>}
+                            {completeTodo?<p style={{color:'white', backgroundColor:'#a55', padding:'1rem 0', textAlign:'center', border:'2px solid #c00', borderRadius:5}}>Debe completar el formulario con todos los datos</p> : <></>}
+                            {completeTodo2?<p style={{color:'white', backgroundColor:'#a55', padding:'1rem 0', textAlign:'center', border:'2px solid #c00', borderRadius:5}}>No hay productos en el carro</p> : <></>}
+
                         <Button /*href='/pago'*/ onClick={handleButton} style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
                         <div style={{height:'50px'}}></div>
 
