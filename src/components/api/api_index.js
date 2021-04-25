@@ -16,7 +16,7 @@ export const updatePost = (id, updateProduct)=> axios.patch(`${url}/${id}`,updat
 export const deletePost = (id) => axios.delete(`${url}/${id}`,getToken);
 
 
-// //USUARIOS
+//USUARIOS
 // export const fetchUsers = () => axios.get(url2, getToken);
 
 // export const createUser = (newProduct) => axios.post(url2, newProduct,getToken);

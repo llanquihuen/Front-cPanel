@@ -1,14 +1,20 @@
 import React,{useState, useRef} from 'react'
 
+import axios from 'axios';
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {pink} from '@material-ui/core/colors'
-import {Paper,TextField, Button, Grid} from '@material-ui/core'
+import {Paper,TextField, Button, Grid, MenuItem, NativeSelect, InputLabel} from '@material-ui/core'
 import { useMediaQuery } from 'react-responsive';
 
 import HeroSwiper from '../HeroSwiper';
 import Footer from '../Footer';
 import DetalleCompra from '../products/product/DetalleCompra';
+
+const url ='http://localhost:5000/clientes';
+const url2 ='http://localhost:5000/compras';
+
+
 
 let testMail=true
 let testRut=true
@@ -68,8 +74,27 @@ root2: {
     },
     '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
         transform:'translate(7px,-15px) scale(.85)'
+    },
+    '& .MuiInputBase-root': {
+        fontSize:'1.7rem',
+        color: pink[900],
+    },
+    '& .MuiInput-underline:before':{
+        borderRadius:5,
+        border:'1px solid blue',
+        paddingBottom:30,
+        borderColor: pink[200],
+        
+    },
+    '& .MuiInput-underline:after':{
+        borderColor: pink[300],
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+        borderColor: pink[100],
+      },
+    '& .MuiNativeSelect-select:focus':{
+        backgroundColor: 'transparent'
     }
-    
 },
 nonono:{
     '& .MuiOutlinedInput-root': {
@@ -126,6 +151,7 @@ const Users = (props) => {
     const inputRut = useRef(null);
     const classes = useStyles();
     const isMobile = useMediaQuery({ query: '(max-width: 360px)' })
+    const isSmall = useMediaQuery({query:'(max-width:567px)'})
     const isMediumLong = useMediaQuery({ query: '(max-width: 1300px)' })
 
 
@@ -134,7 +160,10 @@ const Users = (props) => {
         email:"",
         rut:"",
         telefono:"",
+        region:"",
+        comuna:"",
         direccion:"",
+
     })
     
 
@@ -197,7 +226,7 @@ const Users = (props) => {
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     //     props.updateLista()
     // }, [listaPedido])
-
+    
     // const updateLista =()=>{
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     // } 
@@ -221,46 +250,196 @@ const Users = (props) => {
 
     function numberWithDots(x) {return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
 
-    
+    const RegionesYcomunas = {
 
+        "regiones": [{
+                "NombreRegion": "Arica y Parinacota",
+                "comunas": ["Arica", "Camarones", "Putre", "General Lagos"]
+        },
+            {
+                "NombreRegion": "Tarapacá",
+                "comunas": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]
+        },
+            {
+                "NombreRegion": "Antofagasta",
+                "comunas": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"]
+        },
+            {
+                "NombreRegion": "Atacama",
+                "comunas": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]
+        },
+            {
+                "NombreRegion": "Coquimbo",
+                "comunas": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]
+        },
+            {
+                "NombreRegion": "Valparaíso",
+                "comunas": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]
+        },
+            {
+                "NombreRegion": "Región del Libertador Gral. Bernardo O’Higgins",
+                "comunas": ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]
+        },
+            {
+                "NombreRegion": "Región del Maule",
+                "comunas": ["Talca", "Consitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"]
+        },
+            {
+                "NombreRegion": "Región del Biobío",
+                "comunas": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"]
+        },
+            {
+                "NombreRegion": "Región de la Araucanía",
+                "comunas": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria", ]
+        },
+            {
+                "NombreRegion": "Región de Los Ríos",
+                "comunas": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]
+        },
+            {
+                "NombreRegion": "Región de Los Lagos",
+                "comunas": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"]
+        },
+            {
+                "NombreRegion": "Región Aisén del Gral. Carlos Ibáñez del Campo",
+                "comunas": ["Coihaique", "Lago Verde", "Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez"]
+        },
+            {
+                "NombreRegion": "Región de Magallanes y de la Antártica Chilena",
+                "comunas": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]
+        },
+            {
+                "NombreRegion": "Región Metropolitana de Santiago",
+                "comunas": ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltíl", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]
+        }]
+    }
+    const lookUp =(name)=>{
+        for(let i=0;i<RegionesYcomunas.regiones.length;i++){
+            if (RegionesYcomunas.regiones[i].NombreRegion===name){
+                // .sort(Intl.Collator().compare Es para que ordene alfabeticamente la ñ y los acentos donde debería.
+                return RegionesYcomunas.regiones[i].comunas.sort(Intl.Collator().compare)
+            }
+        }
+    }
+
+    let cm=(lookUp(userData.region))
+    let envio = 0 
+
+      if (userData.region==='Región Metropolitana de Santiago'){
+          if (userData.comuna=== ""||userData.comuna === cm[0]||userData.comuna === cm[1]||userData.comuna === cm[2]||userData.comuna === cm[5]||userData.comuna === cm[7]||userData.comuna ===cm[9]||userData.comuna ===cm[13]||userData.comuna === cm[19]||userData.comuna === cm[26]||userData.comuna === cm[27]||userData.comuna === cm[29]||userData.comuna === cm[30]||userData.comuna === cm[32]||userData.comuna === cm[34]||userData.comuna === cm[42]||userData.comuna === cm[44]||userData.comuna === cm[46]||userData.comuna === cm[48]||userData.comuna === cm[49]){
+              console.log('demasiado lejos')
+          }else{
+              envio=3000
+          }
+      }
+
+
+
+        const [completeTodo, setcompleteTodo] = useState(false)
+        const [completeTodo2, setcompleteTodo2] = useState(false)
+
+        const handleButton =()=>{
+            setcompleteTodo(false)
+            if(userData.comuna===""||userData.direccion===""||userData.nombre===""||userData.rut===""||userData.email===""||!testRut||!testMail||userData.telefono===""){
+                setcompleteTodo(true)
+                console.log("nop", completeTodo)
+            }else if(localStorage.getItem("invitado")==="[]"){
+                setcompleteTodo2(true)
+            }else{
+                const createCliente = (f) => axios.post(url, f);
+                const createCompra = (x) => axios.post(url2, x);
+                let dataTemp = JSON.stringify(userData)
+                localStorage.setItem("clientetemporal",dataTemp)
+                let dataCompra = localStorage.getItem("invitado");
+                let jsonCompra = {"detalleCompra":dataCompra,"direccion":userData.direccion, "idCliente":userData.rut}
+                let jsonCompra2 = {"detalleCompra":dataCompra,"email":userData.email,"direccion":userData.direccion, "nombre":userData.nombre}
+
+                sessionStorage.setItem("detalleCompra",JSON.stringify(jsonCompra2).replace(/\\/g,"").replace('"[','[').replace(']"',']'))
+                // console.log("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,""))
+                // console.log(userData)
+                // console.log(jsonCompra)
+                createCliente (userData)
+                createCompra(jsonCompra)
+                window.localStorage.removeItem('invitado');
+                window.location.href='./pago'
+                
+            }
+        }
+      useEffect(() => {
+            if (localStorage.getItem("clientetemporal")){
+                let objeto = JSON.parse(localStorage.getItem("clientetemporal"))
+                // console.log(objeto.nombre)
+                setUserData({...userData,nombre:objeto.nombre,rut:objeto.rut,direccion:objeto.direccion, telefono:objeto.telefono, email:objeto.email,region:objeto.region, comuna:objeto.comuna})
+            }
+        }, [])
+        // console.log(userData)
         return (
         <div style={{display:'flex', flexDirection:'column'}}>
             {/* <HeroSwiper updateLista={updateLista}/> */}
             <div style={{height:'100%',paddingBottom:'6rem',minHeight:'800px', background:'linear-gradient(125deg, rgba(251,168,179,.6) 0%, rgba(254,228,232,.6) 100%)'}}>
                 <h1 style={{textAlign:'center', margin:0, padding:'5rem'}}>DATOS PARA LA ENTREGA</h1>
                 <div    className={isMediumLong?classes.rootMobile:classes.root}>
-                    <Paper style={{ display:'flex', flexDirection:isMediumLong?'column':'row',justifyContent:'space-around',background:'linear-gradient(180deg, rgba(255,247,250,1) 0%, rgba(255,235,241,1) 100%)', borderRadius:'19px', }}  elevation={9} >
-                    <div style={{width:isMediumLong?'95%':'50%',margin:'auto', padding:isMobile?'0 0':'0 3rem'}}>
-                        <h2 style={{textAlign:'center', paddingTop:'3rem'}}>Completa el formulario para el envío</h2>
-                    <form className={classes.root2} noValidate autoComplete="off">
+                    <Paper style={{ display:'flex', flexDirection:isMediumLong?'column':'row',minHeight:750,justifyContent:'space-between',background:'linear-gradient(180deg, rgba(255,247,250,1) 0%, rgba(255,235,241,1) 100%)', borderRadius:'19px', }}  elevation={9} >
+                    <div style={{width:isMediumLong?'95%':'50%',margin:'27px auto', padding:isSmall?'0 0':'0 3rem'}}>
+                        <h2 style={{textAlign:'center'}}>Completa el formulario para el envío</h2>
+                    <form style={{display:'flex',flexDirection:'column',gap:17,height:'100%'}}className={classes.root2} noValidate autoComplete="off">
                         
-                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}}  required={true} label="Nombre" variant="outlined" value={userData.name} onChange={(e)=> setUserData({...userData, nombre:e.target.value})}/>
+                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}}  required={true} label="Nombre" variant="outlined" value={userData.nombre} onChange={(e)=> setUserData({...userData, nombre:e.target.value})}/>
                         <div>
-                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}} className={testMail? classes.sisisi:classes.nonono} required={true} label="Email" variant="outlined" value={userData.email} onChange={(e)=>validateEmail(e.target.value)} />
-                        {!testMail?<p style={{height:0,padding:'0 5', color:'crimson'}}>Escriba un mail válido</p>:<></>}
+                        <TextField inputProps={{style: {fontSize: 16}}}  style={{width:isSmall?'100%':'35ch'}} InputLabelProps={{style: {fontSize: 15}}} className={testMail? classes.sisisi:classes.nonono} required={true} label="Email" variant="outlined" value={userData.email} onChange={(e)=>validateEmail(e.target.value)} />
+                        {!testMail?<p style={{height:0,padding:'0 5', marginBottom:17, color:'crimson'}}>Escriba un mail válido</p>:<></>}
                         </div>
-                        <div style={{display:'flex',justifyContent:'space-between', gap:isMobile?5:10}}>
-                            
+                        <div style={{display:'flex',flexDirection:isSmall?'column':'row',justifyContent:'space-between', gap:isSmall?20:10, marginBottom:25}}>
+
                             <div>
-                            <TextField inputProps={{maxLength: 12, style: {fontSize:isMobile?15:16, paddingLeft:isMobile?8:'auto', paddingRight:8,}}}  className={testRut? classes.sisisi:classes.nonono} InputLabelProps={{style: {fontSize: 15}}} style={{width:isMobile?'60%':'25ch'}} ref={inputRut}  onBlur={(e)=>puntosYGuion(e.target.value)} required={true} label="RUT" variant="outlined" value={userData.rut} onChange={(e)=>validateRut(e.target.value)}  />
-                            {!testRut?<p style={{height:0,padding:'0 5', color:'crimson'}}>Escriba un RUT válido</p>:<></>}
+                            <TextField inputProps={{maxLength: 12, style: {fontSize:isMobile?15:16, paddingLeft:isMobile?8:'auto', paddingRight:8,}}}  className={testRut? classes.sisisi:classes.nonono} InputLabelProps={{style: {fontSize: 15}}} style={{width:isSmall?'100%':'25ch'}} ref={inputRut}  onBlur={(e)=>puntosYGuion(e.target.value)} required={true} label="RUT" variant="outlined" value={userData.rut} onChange={(e)=>validateRut(e.target.value)}  />
+                            {!testRut?<p style={{height:0,padding:'0 5', marginBottom:17,color:'crimson'}}>Escriba un RUT válido</p>:<></>}
                             </div>
-                            <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:'25ch'}} required={true} label="Teléfono" variant="outlined" />
+                            <TextField inputProps={{style: {fontSize:isMobile?15:16}}}  InputLabelProps={{style: {fontSize: 15}}} style={{width:isSmall?'100%':'25ch'}} required={true} label="Teléfono" variant="outlined" value={userData.telefono} onChange={(e)=> setUserData({...userData, telefono:e.target.value})} />
                         </div>
-                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}} required={true} label="Dirección para la entrega" variant="outlined" />
-                        <Button style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar</Button>
+                        
+                        <NativeSelect required={true} style={{marginBottom:15}}inputProps={{style:{fontSize:15, paddingBottom:18, paddingLeft:16}, /*MenuProps: {disableScrollLock: true}*/}} id="select" label="Región" value={userData.region} onChange={(e)=> setUserData({...userData, region:e.target.value})}>
+                        <option disabled value="">Región</option>
+                        {RegionesYcomunas.regiones.map((name) => (
+                        <option key={name.NombreRegion} value={name.NombreRegion}>
+                        {name.NombreRegion}
+                        </option>
+                        ))}
+                        </NativeSelect>
+                        {userData.region? 
+                        <NativeSelect inputProps={{style:{fontSize:15, paddingBottom:18, paddingLeft:16}, /*MenuProps: {disableScrollLock: true}*/}} id="select" label="Región" value={userData.comuna} onChange={(e)=> setUserData({...userData, comuna:e.target.value})}>
+                        <option disabled value="">Comuna</option>
+                        {lookUp(userData.region).map((name) => (
+                        <option key={name} value={name}>
+                        {name}
+                        </option>
+                        ))}
+                        </NativeSelect>:<></>}
+            
+                        <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15, paddingBottom:10}}} required={true} label="Dirección" value={userData.direccion} variant="outlined" onChange={(e)=> setUserData({...userData, direccion:e.target.value})} />
+                        {envio!==0?<p></p>: userData.region==='Región Metropolitana de Santiago'?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago urbano por pagar en Starken</p>:<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago por pagar en Starken</p>}
+                            {completeTodo?<p style={{color:'white', backgroundColor:'#a55', padding:'1rem 0', textAlign:'center', border:'2px solid #c00', borderRadius:5}}>Debe completar el formulario con todos los datos</p> : <></>}
+                            {completeTodo2?<p style={{color:'white', backgroundColor:'#a55', padding:'1rem 0', textAlign:'center', border:'2px solid #c00', borderRadius:5}}>No hay productos en el carro</p> : <></>}
+
+                        <Button /*href='/pago'*/ onClick={handleButton} style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'auto', textAlign:'center'}}>Pagar ${numberWithDots(sumaPrecios+envio)}</Button>
+                        <div style={{height:'50px'}}></div>
+
                     </form>
                     </div>
                     {isMediumLong?  <hr style={{background:'white', width:'90%', borderColor:'pink'}}></hr>:<hr style={{background:pink[50],height:'80%', width:'4px', borderRadius:'5px',borderColor:pink[50], margin:'auto'}}></hr>}
                   
                     <div className={classes.scrollbar} style={{background:'transparent',height:'100%',overflowY:'scroll', width:isMediumLong?'80%':'50%', margin:'auto'}}>
-                        <h2 style={{textAlign:'center'}}>Detalle Compra</h2>
+                        <h2 style={{textAlign:'center',paddingTop:27}}>Detalle Compra</h2>
                 {intersection.map((post)=>(
-                    <Grid style={{ width:'80%', margin:'4rem auto'}}  key={post._id} item >
+                    <Grid style={{ width:'80%', margin:'2rem auto'}}  key={post._id} item >
                     <DetalleCompra post={post} storage={listaPedido}/>
                     </Grid>
                 ))}  
-                <p style={{ width:'80%', margin:'4rem auto', fontSize:'2em'}} >Total: {numberWithDots(sumaPrecios)}</p>    
+                <p style={{ width:'80%', margin:'1rem auto', fontSize:envio!==0?'1.5em':'2em'}} >Total: {numberWithDots(sumaPrecios)}</p>    
+                {envio!==0?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1.5em'}} >Envío: {numberWithDots(envio)}</p>: userData.region==='Región Metropolitana de Santiago'?<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago urbano por pagar en Starken</p>:<p style={{ width:'80%', margin:'1rem auto', fontSize:'1em'}}>Envíos fuera de santiago por pagar en Starken</p>}
+                {envio!==0?<p style={{ width:'80%', margin:'2rem auto', fontSize:'2em'}} >Total: {numberWithDots(sumaPrecios+envio)}</p>:<></>}
+                <div style={{height:'50px'}}></div>
+
                 </div> 
                     </Paper>
                 </div>

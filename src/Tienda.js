@@ -14,6 +14,8 @@ import App from './App'
 import Products from './components/products/Products'
 import NotFound from './NotFound'
 import Users from './components/users/Users'
+import Pago from './components/users/Pago'
+
 // import Products from './components/products/Products'
 import Details from './components/products/product/ProductDetalle2'
 
@@ -83,6 +85,12 @@ function Tienda() {
             <>
                 <HeroSwiper updateLista={updateLista} lista={listaPedido}/>
                 <Users {...routerProps} updateLista={updateLista} lista={listaPedido}/>
+            </>
+            }/>
+            <Route path='/pago' render={(routerProps)=>
+            <>
+                <HeroSwiper updateLista={updateLista} lista={listaPedido}/>
+                <Pago {...routerProps} updateLista={updateLista} lista={listaPedido}/>
             </>
             }/>
             

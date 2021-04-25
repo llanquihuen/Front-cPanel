@@ -203,7 +203,6 @@ const MyGallery = (routerProps) => {
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
         {Redirect? <NotFound />: 
-
         <div className='body-detalle'>
             <div style={{position:'relative'}}className={isMobile?'box-mobile-detalle':'box-detalle'} >
                 <div className={isMobile?'mobile-flex1':'flex1'}>

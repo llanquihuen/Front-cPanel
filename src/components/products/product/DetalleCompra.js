@@ -37,7 +37,7 @@ const DetalleCompra =  ({post, storage, este}) => {
     // }
     // }
 
-                    
+                    // console.log(post)
 
 
     return (
@@ -46,7 +46,7 @@ const DetalleCompra =  ({post, storage, este}) => {
             <div  className="card-carrito">
                 <div className="card-img-carrito">
                     <a href={`${hereUrl}products/`+post._id}>
-                        <img className="medium" src={url+post.imageLocation[0]} alt="producto1" />
+                        <img className="medium" src={url+"thumb/thumbnails-"+post.imageLocation[0].slice(8)} alt="producto1" />
                     </a>
                 </div>
                 <div className="card-body-carrito">

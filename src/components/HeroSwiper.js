@@ -36,12 +36,12 @@ const useStyles = makeStyles({
       // borderLeft:'2px solid #777',
       maxWidth:500,
       background:'rgb(252, 235, 235)',
-      
+
     },
     fullList: {
       width: 'auto',
-        
     },
+    
   });
 
 const HeroSwiper = (este) => {
@@ -70,13 +70,13 @@ const HeroSwiper = (este) => {
     //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
     //     return;
     //   }
-  
+
       setState({ ...state, [anchor]: open });
     };
     // console.log(este)
 
     //QUE CALCULE EL PRECIO----------------------------
-    const preciosCantidad = intersection.map((post)=>{ 
+    const preciosCantidad = intersection.map((post)=>{
         // eslint-disable-next-line eqeqeq
         let store = storage.filter(el=> el._id==post._id)
         return post.price * store[0].cantidad})
@@ -88,10 +88,10 @@ const HeroSwiper = (este) => {
     const list = (anchor) => (
       <div
         className={clsx(classes.list)}
-        role="presentation"
+        // role="presentation"
         // onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
-        
+
       >
        <h1 style={{textAlign:'center', margin:0,paddingBlockStart:'0.9em',paddingBlockEnd:'0.67em', background:'black',color:'whitesmoke'}}>Carrito</h1>
             <Grid style={{width:'100%',display:'flex',flexDirection:'column',paddingTop:'1em', alignContent:'space-between', borderTop:'3px solid #777'}} container spacing={0}>
@@ -100,19 +100,19 @@ const HeroSwiper = (este) => {
                     <ProductSideCarrito post={post} storage={storage} este={este}/>
                     </Grid>
                 ))}
-           
+
             </Grid>
             <div style={{display:'flex',flexDirection:'column', justifyContent:'space-between',margin:'1em'}}>
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
                 
                 <Button href='/store2/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
             </div>
-            
+
       </div>
     );
 
     return (<>
-        <Swiper 
+        <Swiper
             speed={2000}
             spaceBetween={0}
             centeredSlides={true}
@@ -134,11 +134,11 @@ const HeroSwiper = (este) => {
             <SwiperSlide>
             <img src={slide1} alt="slide1" />
             </SwiperSlide>
-    
+
             <SwiperSlide>
             <img src={slide2} alt="slide2" />
             </SwiperSlide>
-    
+
             <SwiperSlide>
                 <img src={slide3} alt="slide3" />
             </SwiperSlide>
@@ -155,8 +155,8 @@ const HeroSwiper = (este) => {
             </div>
             <div className="barra-flex-der">
                 <div className="iconos carroIcono">
-            <React.Fragment key={anchor}>
-            <SwipeableDrawer BackdropProps={{style: {backgroundColor: '#ffffff33'}}} style={{opacity:'98%',backdropFilter:'blur(1px)'}} anchor={anchor} open={state[anchor]} onOpen={toggleDrawer(anchor, true)} onClose={toggleDrawer(anchor, false)}>{list(anchor)}</SwipeableDrawer>
+            <React.Fragment  key={anchor}>
+            <SwipeableDrawer disableScrollLock={true} BackdropProps={{style: {backgroundColor: '#ffffff33'}}} style={{opacity:'98%'}}  anchor={anchor} open={state[anchor]} onOpen={toggleDrawer(anchor, true)} onClose={toggleDrawer(anchor, false)}>{list(anchor)}</SwipeableDrawer>
             <Button style={{border:'2px solid pink', width:'8rem'}} onClick={toggleDrawer(anchor, true)}>
                     {/* <FontAwesomeIcon style={{fontSize:'30px',color:'#ffdddd'}} icon={faShoppingCart} /> */}
                     {storage.length>0? <ShoppingCart style={{ color: pink[100],fontSize:40 }} />:<ShoppingCartOutlined style={{ color: pink[50],fontSize:40 }}/>}
