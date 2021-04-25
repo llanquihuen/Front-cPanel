@@ -351,9 +351,10 @@ const Users = (props) => {
                 let dataTemp = JSON.stringify(userData)
                 localStorage.setItem("clientetemporal",dataTemp)
                 let dataCompra = localStorage.getItem("invitado");
-                let jsonCompra = {"detalleCompra":dataCompra,"email":userData.email,"direccion":userData.direccion, "nombre":userData.nombre}
+                let jsonCompra = {"detalleCompra":dataCompra,"direccion":userData.direccion, "idCliente":userData.rut}
+                let jsonCompra2 = {"detalleCompra":dataCompra,"email":userData.email,"direccion":userData.direccion, "nombre":userData.nombre}
 
-                sessionStorage.setItem("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,"").replace('"[','[').replace(']"',']'))
+                sessionStorage.setItem("detalleCompra",JSON.stringify(jsonCompra2).replace(/\\/g,"").replace('"[','[').replace(']"',']'))
                 // console.log("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,""))
                 // console.log(userData)
                 // console.log(jsonCompra)
