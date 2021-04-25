@@ -30,6 +30,7 @@
     padding:1em 1em;
     /* background-color: rgb(255, 255, 255); */
 }
+
 .image-gallery-bullet.active{
 
       background: rgb(241, 110, 132) !important;
@@ -54,6 +55,7 @@
     height: 300px;
     max-width: 450px;
 } */
+
 .mobile{
     /* padding-top:  40px; */
     display: flex;
@@ -63,5 +65,5 @@
 .long-screen{
     flex-direction: row;
     max-width: 100%;
-    margin:2rem;
+    margin:auto;
 }
