@@ -338,7 +338,7 @@ const Users = (props) => {
         const [completeTodo, setcompleteTodo] = useState(false)
         const [completeTodo2, setcompleteTodo2] = useState(false)
 
-        const handleButton =()=>{
+        const handleButton = async()=>{
             setcompleteTodo(false)
             if(userData.comuna===""||userData.direccion===""||userData.nombre===""||userData.rut===""||userData.email===""||!testRut||!testMail||userData.telefono===""){
                 setcompleteTodo(true)
@@ -358,8 +358,9 @@ const Users = (props) => {
                 // console.log("detalleCompra",JSON.stringify(jsonCompra).replace(/\\/g,""))
                 // console.log(userData)
                 // console.log(jsonCompra)
-                createCliente (userData)
-                createCompra(jsonCompra)
+                createCliente (userData).then(
+                    createCompra(jsonCompra)
+                )
                 window.localStorage.removeItem('invitado');
                 window.location.href='./pago'
                 
@@ -386,7 +387,7 @@ const Users = (props) => {
                         
                         <TextField inputProps={{style: {fontSize: 16}}}  InputLabelProps={{style: {fontSize: 15}}}  required={true} label="Nombre" variant="outlined" value={userData.nombre} onChange={(e)=> setUserData({...userData, nombre:e.target.value})}/>
                         <div>
-                        <TextField inputProps={{style: {fontSize: 16}}}  style={{width:isSmall?'100%':'35ch'}} InputLabelProps={{style: {fontSize: 15}}} className={testMail? classes.sisisi:classes.nonono} required={true} label="Email" variant="outlined" value={userData.email} onChange={(e)=>validateEmail(e.target.value)} />
+                        <TextField inputProps={{style: {fontSize: 16}}}  style={{width:isSmall?'100%':'35ch'}} InputLabelProps={{style: {fontSize: 15}}} className={testMail? classes.sisisi:classes.nonono} required={true} label="Email" variant="outlined" value={userData.email.trim()} onChange={(e)=>validateEmail(e.target.value.trim())} />
                         {!testMail?<p style={{height:0,padding:'0 5', marginBottom:17, color:'crimson'}}>Escriba un mail válido</p>:<></>}
                         </div>
                         <div style={{display:'flex',flexDirection:isSmall?'column':'row',justifyContent:'space-between', gap:isSmall?20:10, marginBottom:25}}>
