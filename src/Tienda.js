@@ -38,7 +38,7 @@ function Tienda() {
     const updateLista =()=>{
         setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     }
-
+    
     //Logout token invalido
     const currentTime = Date.now() /1000
     const logOut = () =>{
@@ -56,7 +56,6 @@ function Tienda() {
 
 
     console.log(currentId)
-
     let direccion = Login
 
         if (!localStorage.getItem("token")){
@@ -64,6 +63,7 @@ function Tienda() {
         }else{
             direccion=App
         }
+        
   return (
 
     <div className="styleApp">

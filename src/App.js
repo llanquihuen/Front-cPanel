@@ -60,10 +60,10 @@ function App() {
   let intervalRef = useRef();
   
   
-  useEffect(() => {
-      intervalRef.current = setInterval(decreaseNum, 1000);
-      return () => clearInterval(intervalRef.current);
-  }, []);
+  // useEffect(() => {
+  //     intervalRef.current = setInterval(decreaseNum, 1000);
+  //     return () => clearInterval(intervalRef.current);
+  // }, []);
 
   // Configuracion HH:MM:SS de cuenta regresiva  
   let hours = Math.floor(num/3600);
