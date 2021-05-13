@@ -6,7 +6,7 @@ import {getPosts} from './components/redux/actions'
 
 import './App.css';
 import Posts from './components/posts/posts';
-import PostCliente from './components/postsClientes/postCliente'
+import PostCompra from './components/postsClientes/postCompra'
 
 function App() {
   const [currentId, setCurrentId] = useState(null)
@@ -96,7 +96,7 @@ function App() {
         <Posts setCurrentId={setCurrentId}/>
         <hr />
        </header>
-       <PostCliente></PostCliente>
+       <PostCompra></PostCompra>
     </div>
   );
 }

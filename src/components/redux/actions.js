@@ -1,4 +1,4 @@
-import {FETCH_ALL, CREATE, UPDATE, DELETE} from './constants'
+import {FETCH_ALL, CREATE, UPDATE, DELETE,FETCH_ALL_C,FETCH_ALL_CO} from './constants'
 import * as api from '../api/api_index';
 
 //Action Creators ////////////1* ACCION-USE_EFFECT-REDUCER sigue en App.js
@@ -10,6 +10,31 @@ export const getPosts = () => async (dispatch) => {     //async thunk porque fet
         dispatch({                      //dispatch en vez de return por lo asincrono
             type:FETCH_ALL,
             payload: data});            //el payload se lleva a reducers para que ejecute la acción
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+export const getClientes = () => async (dispatch) => {    
+    try {
+        console.log("action-Fetch")
+        const {data} = await api.fetchClientes();
+        // console.log(data)
+        dispatch({                     
+            type:FETCH_ALL_C,
+            payloadCliente: data});            
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+export const getCompras = () => async (dispatch) => {    
+    try {
+        const {data} = await api.fetchCompras();
+        // console.log("action-Fetch-compra")
+        dispatch({                     
+            type:FETCH_ALL_CO,
+            payloadCompras: data});            
     } catch (error) {
         console.log(error.message)
     }

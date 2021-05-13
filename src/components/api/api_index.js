@@ -4,6 +4,8 @@ import axios from "axios"
 // const url ='https://sakuranboshodo.cl/test2/products';
 const url ='http://localhost:5000/products';
 const url2 ='http://localhost:5000/clientes';
+const url3 ='http://localhost:5000/compras';
+
 
 
 const getToken = {headers:{authorization: localStorage.getItem("token")}  //esto es para el middle (AuthToken)
@@ -18,6 +20,9 @@ export const deletePost = (id) => axios.delete(`${url}/${id}`,getToken);
 
 //CLIENTES
 export const fetchClientes = () => axios.get(url2, getToken);
+//COMPRAS
+export const fetchCompras = ()=> axios.get(url3, getToken)
+
 
 // export const createUser = (newProduct) => axios.post(url2, newProduct,getToken);
 // export const updateUser = (id, updateProduct)=> axios.patch(`${url2}/${id}`,updateProduct,getToken);

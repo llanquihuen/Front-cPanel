@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     fullList: {
       width: 'auto',
     },
-    
+
   });
 
 const HeroSwiper = (este) => {
@@ -54,9 +54,10 @@ const HeroSwiper = (este) => {
     //     storage=[]
     // }
     // console.log(storage.length)
-    console.log(este)
+    //console.log(este)
     const posts = useSelector((state) => state.posts) //posts por .reducer/index.js
-    // console.log(posts)
+
+    console.log(posts)
     const nums = storage.map(item=>{return item._id}) // nums = [18,19,20]
 
     let intersection = posts.filter(el=> nums.includes(el._id))

@@ -24,10 +24,25 @@ function Tienda() {
         window.localStorage.setItem('invitado','[]')
     }
     const [currentId, setCurrentId] = useState(null)
+    // const [currentId2, setCurrentId2] = useState(null)
+
+
     const dispatch = useDispatch();
+    // const dispatchC = useDispatch();
+
+
+
+
     useEffect(() => {
         dispatch(getPosts())  ////////2* action->UseEffect ->reducer
     }, [currentId, dispatch])
+
+    // useEffect(() => {
+    //     dispatch(getClientes())  ////////2* action->UseEffect ->reducer
+    // }, [currentId2, dispatchC])
+
+
+
     // eslint-disable-next-line no-unused-vars
     const [listaPedido, setListaPedido] = useState(JSON.parse(window.localStorage.getItem('invitado')))
 
@@ -56,6 +71,8 @@ function Tienda() {
 
 
     console.log(currentId)
+
+
     let direccion = Login
 
         if (!localStorage.getItem("token")){
