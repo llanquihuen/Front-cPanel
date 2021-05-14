@@ -69,8 +69,8 @@ const PostCompra = () => {
             <h1>Compras</h1>
                 {currentPost.map((dat)=>(
                 <li key={dat._id}>RutCompra: {dat.idCliente} --  Direccion: {dat.direccion}<br/>
-                  compra: {intersection(dat).map(el=>
-                      <p key={el._id}>{cantidad(dat)}{el.name}</p>
+                  compra: {intersection(dat).map((el,i)=>
+                      <p key={el._id}>{cantidad(dat)[i]}-{el.name}</p>
                   )}<hr/>
                 
                 </li>
