@@ -57,20 +57,20 @@ const PostCompra = () => {
        return JSON.parse(x.detalleCompra.replace(/'/g,'"'))
     }
     
-    //retorna el numero ID producto dentro de la compra.
-    const numero =(dat)=> JSON.parse(dat.detalleCompra.replace(/'/g,'"')).map((x)=>(x._id))
+    //retorna la cantidadde los productos dentro de la compra.
+    const cantidad =(dat)=> JSON.parse(dat.detalleCompra.replace(/'/g,'"')).map((x)=>(x.cantidad))
 
     //Filtrar post con los numeros de la compra.
     let intersection =(dat)=> posts.filter(el=> dat.detalleCompra.includes(el._id))
 
-    // console.log(unaCompra)
+    console.log(compras)
     return (
         <div>
             <h1>Compras</h1>
                 {currentPost.map((dat)=>(
                 <li key={dat._id}>RutCompra: {dat.idCliente} --  Direccion: {dat.direccion}<br/>
-                  compra {intersection(dat).map(el=>
-                      <p key={el._id}>{el.name}</p>
+                  compra: {intersection(dat).map(el=>
+                      <p key={el._id}>{cantidad(dat)}{el.name}</p>
                   )}<hr/>
                 
                 </li>
