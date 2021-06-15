@@ -48,7 +48,7 @@ const MyGallery = (routerProps) => {
     // const updateLista =()=>{
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     // }
-
+    
 
     let esteProduct=""
     if (listaPedido){
@@ -79,7 +79,7 @@ const MyGallery = (routerProps) => {
         setProduct2(data)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[posts])
-    // console.log(Product2)
+    console.log(routerProps)
 
 
 
@@ -198,6 +198,11 @@ const MyGallery = (routerProps) => {
 
   }, [esteProduct,listaPedido])
 
+  console.log(routerProps.lista)
+  console.log(Product._id)
+  let intersection = routerProps.lista.filter(el=> el._id==routerProps.match.params._id)[0]
+  console.log(intersection)
+
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
         {Redirect? <NotFound />: 
@@ -210,14 +215,14 @@ const MyGallery = (routerProps) => {
                     <p style={{color:'#333', fontSize:'2.5em'}}>{Product.name}</p>
                     <p style={{color:'#333', fontSize:'calc(10px + 1.2vmin)', margin:'1em 0', lineHeight:'150%'}}>{Product.descrip}</p>
                     <p style={{color:'#333', fontSize:'0.9em', marginTop:'1em'}}>Stock: {Product.stock}</p>
-                    {thisProduct ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {thisProduct.cantidad} </p>:<></>}
+                    {thisProduct ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {intersection.cantidad} </p>:<></>} {/* thisProduct.cantidad ... cambiar todos los thisProduct a intersection, como en User o como en productSideCarrito */}
                     <br></br>
                     <p style={{color:'mediumvioletred', fontSize:'2.2em', fontWeight:'bold', margin:'1rem 0 2rem 0'}}>${Product.price}</p>
 
                 <div>
                     <label htmlFor="cantidadP">Cantidad:</label><br/>
                     <div style={{display:'flex', gap:10}}>
-                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  placeholder={thisProduct ? thisProduct.cantidad:'1'} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
+                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  placeholder={thisProduct ? intersection.cantidad:'1'} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
                     {numeroItem>0 && numeroItem<=Product.stock? <Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={changeCartHandler} >{esteProduct? "Editar" :"Agregar"}</Button>: numeroItem<=0 ? !esteProduct? <></>:<Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={deleteElementHandler} >Quitar </Button>: <p>No hay stock para su pedido</p>}
                     </div>
                 </div>
