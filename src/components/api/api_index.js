@@ -1,10 +1,11 @@
 import axios from "axios"
+import myConfig from "../../config";
 
 
 // const url ='https://sakuranboshodo.cl/test2/products';
-const url ='http://localhost:5000/products';
-const url2 ='http://localhost:5000/clientes';
-const url3 ='http://localhost:5000/compras';
+const url =`${myConfig.urlBack}products`;
+const url2 =`${myConfig.urlBack}clientes`;
+const url3 =`${myConfig.urlBack}compras`;
 
 
 

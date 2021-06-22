@@ -1,8 +1,9 @@
 import React from 'react'
 import './sidecarrito.css'
+import myConfig from '../../../config.js'
 
-const url ="http://localhost:5000/"
-const hereUrl="http://localhost:3000/"
+const url =myConfig.urlBack
+const hereUrl=myConfig.urlFront
 
 const ProductSideCarrito =  ({post, storage, este}) => {
 

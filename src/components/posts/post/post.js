@@ -1,5 +1,6 @@
 import React,{useState, useRef, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
+import myConfig from '../../../config';
 
 import {deletePost} from '../../redux/actions'
 import  "./post-style.css"
@@ -8,7 +9,7 @@ import  "./post-style.css"
 // import Gallery from '../post/gallery'
 
 // const url = 'https://sakuranboshodo.cl/test2/'
-const url ='http://localhost:5000/';
+const url =myConfig.urlBack;
 
 const Post = ({post, setCurrentId}) => {
     // console.log(post)
@@ -90,7 +91,7 @@ const Post = ({post, setCurrentId}) => {
     return (
         <div className='post-complete'>
             {/* three dots button */}
-            <div>
+            <div className='flex-post'>
                 <div className='info-post'>
                     <div>
                         <p className='p-name'>{post.name?  `${post.name}` : "Sin Nombre"}</p>
@@ -107,7 +108,7 @@ const Post = ({post, setCurrentId}) => {
 
 
                 {photos[0]===undefined? <p>Sin Imagen</p> :
-                <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                <div className="post-fotos">
                     <img className={`main-pic`} alt="imagen" 
                     src={`${url}${mainPic ? mainPic.replace(/\\/g, "/") : photos[prevCount]}`}></img>
 
@@ -135,13 +136,13 @@ const Post = ({post, setCurrentId}) => {
                     </div>
                 </div>}
                 {/* <>{post.imageLocation ? post.imageLocation.map((imag)=> <img style={{height:200, width:200}}alt="imagen" key={imag} src={`${url}${imag.replace(/\\/g, "/")}`}></img>) : console.log(post)} </> */}
-            </div>
-
-            
             <div style={{display:'flex', justifyContent:'center', gap:30}}>
                 <button  className={'btns-post'} style={{color:'black', background:"pink"}} onClick={clickEditar}>Editar</button>
                 <button  className={'btns-post'} onClick={()=>{dispatch(deletePost(post._id))}}>Borrar</button>
             </div>
+            </div>
+
+            
         </div>
     )
 }

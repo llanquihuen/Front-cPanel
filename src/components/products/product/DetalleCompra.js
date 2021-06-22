@@ -2,10 +2,11 @@ import React from 'react'
 import './sidecarrito.css'
 
 import { useMediaQuery } from 'react-responsive';
+import myConfig from '../../../config';
 
 
-const url ="http://localhost:5000/"
-const hereUrl="http://localhost:3000/"
+const url =myConfig.urlBack
+const hereUrl=myConfig.urlFront
 
 const DetalleCompra =  ({post, storage, este}) => {
 

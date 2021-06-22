@@ -1,6 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux';
-const url ="http://localhost:5000/"
+import { urlBack } from '../../config';
+const url =`${urlBack}`
 
 
 const Pago = () => {
@@ -15,7 +16,7 @@ const Pago = () => {
   // console.log(intersection)
     return (
       <div style={{minHeight:'70vh', display:'flex', flexDirection:'column', alignItems:'center'}} >
-        <h3 style={{textAlign:'center', margin:'4rem auto', background:'#bbb', width:'100vw', padding:'3rem 0', margin:0}}>Reserva realizada</h3>
+        <h3 style={{textAlign:'center', background:'#bbb', width:'100vw', padding:'3rem 0', margin:0}}>Reserva realizada</h3>
         <div style={{display:'flex', justifyContent:'center '}}>
           <div style={{minWidth:400,alignContent:'center', display:'flex', flexDirection:'column'}}>
             <h4 style={{textAlign:'center'}} >Productos Reservados</h4>

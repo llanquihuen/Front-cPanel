@@ -10,25 +10,45 @@ input:focus{
 }
 textarea{
     overflow-y: hidden;
-    border-radius: 8px;
+    border-radius: 7px;
+    min-height: 70px;
 }
 
 textarea:focus{
     outline: none;
 }
+
 .post-complete{
     background-color: aliceblue;
     /* padding:20px; */
+    height: 100%;
     margin: 20px;
     border: 2px solid black;
     border-radius: 15px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .p-name{
     color:rgb(145, 37, 155);
     font-size:calc(10px + 1.2vmax);
 
     
+}
+.post-fotos{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-evenly;
+    height: 100%;
+}
+.flex-post{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 .info-post{
     display:flex;
@@ -96,6 +116,31 @@ textarea:focus{
 }
 .inactive{
     opacity: 0.2;
+}
+.datosClientePost{
+    display:flex;
+    width:40%;
+    border:2px solid pink;
+    border-radius:10px;
+    background:rgb(255, 249, 249);
+    margin:2rem 4rem;
+    align-items:center;
+    justify-content:center;
+    padding:1.5rem;
+}
+.comprasPost-content{
+    display:flex;
+    flex-wrap:wrap;
+    width:100vw;
+    justify-content:center;
+    background:#fff
+}
+.comprasPost-title{
+    background:#bbb;
+    margin:0;
+    padding:2rem; 
+    border-top:2px solid #666;
+    border-bottom:2px solid #999;
 }
 
 

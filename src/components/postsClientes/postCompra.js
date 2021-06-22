@@ -1,16 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector,useDispatch} from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 
 import {getClientes,getCompras} from '../redux/actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
-        marginTop: theme.spacing(2),
+        padding: theme.spacing(2),
+        display: 'flex',
+        justifyContent:'center',
+        margin:'0px',
+        background:'#bbb'
       },
-    },
+      "& .MuiPaginationItem-sizeLarge": {
+        fontSize:'1.6rem'
+      },
+     },
   }));
 
 const PostCompra = () => {
@@ -63,23 +70,25 @@ const PostCompra = () => {
     //Filtrar post con los numeros de la compra.
     let intersection =(dat)=> posts.filter(el=> dat.detalleCompra.includes(el._id))
 
-    console.log(compras)
+    // console.log(compras)
     return (
         <div>
-            <h1>Compras</h1>
+            <h1 className="comprasPost-title">Compras</h1>
+            <div className="comprasPost-content">
                 {currentPost.map((dat)=>(
-                <li key={dat._id}>RutCompra: {dat.idCliente} --  Direccion: {dat.direccion}<br/>
+                <div className="datosClientePost" key={dat._id}>
+                  
+                  <div>RutCompra: {dat.idCliente} --  Direccion: {dat.direccion}<br/>
                   compra: {intersection(dat).map((el,i)=>
                       <p key={el._id}>{cantidad(dat)[i]}-{el.name}</p>
-                  )}<hr/>
-                
-                </li>
+                  )}
+                  </div>
+                </div>
                 
                 ))}
-  
-                   <div className={classes.root}>
- 
-      <Pagination count={totalPages}page={thisPage} onChange={handleChange} color="secondary" />
+            </div>
+              <div className={classes.root}> 
+      <Pagination size='large' count={totalPages} page={thisPage} onChange={handleChange} color="secondary" />
 
     </div> 
         </div>

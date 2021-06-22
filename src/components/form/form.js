@@ -4,10 +4,11 @@ import axios from 'axios';
 import {useDropzone} from 'react-dropzone'
 import { createPost,updatePost } from '../redux/actions';
 import './drag-form.css'
+import myConfig from '../../config';
 
 
 // const url = 'https://sakuranboshodo.cl/test2/';
-const url ='http://localhost:5000/';
+const url =myConfig.urlBack;
 const getToken = {headers:{authorization: localStorage.getItem("token")} }
 
 const Form = ({currentId, setCurrentId}) => {

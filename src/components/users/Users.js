@@ -4,15 +4,16 @@ import axios from 'axios';
 import {useSelector} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {pink} from '@material-ui/core/colors'
-import {Paper,TextField, Button, Grid, MenuItem, NativeSelect, InputLabel} from '@material-ui/core'
+import {Paper,TextField, Button, Grid, NativeSelect} from '@material-ui/core'
 import { useMediaQuery } from 'react-responsive';
 
-import HeroSwiper from '../HeroSwiper';
-import Footer from '../Footer';
+// import HeroSwiper from '../HeroSwiper';
+// import Footer from '../Footer';
 import DetalleCompra from '../products/product/DetalleCompra';
+import { urlBack } from '../../config';
 
-const url ='http://localhost:5000/clientes';
-const url2 ='http://localhost:5000/compras';
+const url =`${urlBack}clientes`;
+const url2 =`${urlBack}compras`;
 
 
 
@@ -372,6 +373,7 @@ const Users = (props) => {
                 // console.log(objeto.nombre)
                 setUserData({...userData,nombre:objeto.nombre,rut:objeto.rut,direccion:objeto.direccion, telefono:objeto.telefono, email:objeto.email,region:objeto.region, comuna:objeto.comuna})
             }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
         // console.log(userData)
         return (

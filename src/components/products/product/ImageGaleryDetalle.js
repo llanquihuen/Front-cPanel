@@ -1,9 +1,10 @@
 import React,{useEffect, useState} from 'react'
 import ImageGallery from 'react-image-gallery';
 import { useMediaQuery } from 'react-responsive';
+import myConfig from '../../../config';
 import './detalle.css'
 
-const url = 'http://localhost:5000/'
+const url = myConfig.urlBack
 
 const ImageGalerryDetalle = (props) => {
     // console.log(props.Product.imageLocation)

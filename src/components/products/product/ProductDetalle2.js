@@ -12,15 +12,16 @@ import NotFound from '../../../NotFound'
 
 import ProductPortada from './ProductPortada'
 import ImageGalleryDetalle from './ImageGaleryDetalle';
-import HeroSwiper from '../../HeroSwiper';
-import Footer from '../../Footer';
+// import HeroSwiper from '../../HeroSwiper';
+// import Footer from '../../Footer';
 
 
 
 import './detalle.css'
 import "react-image-gallery/styles/css/image-gallery.css";
+import { urlBack } from '../../../config';
 
-const url = 'http://localhost:5000/products/'
+const url = `${urlBack}products/`
 const MyGallery = (routerProps) => {
     //Productos
     const [Product, setProduct] = useState([])
@@ -38,13 +39,20 @@ const MyGallery = (routerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    console.log(routerProps.lista)
+    console.log(Product._id)
+    let intersection = routerProps.lista.filter(el=> el._id==routerProps.match.params._id)
+    console.log(intersection)
+    console.log(routerProps.updateLista)
+
+
     const [Product2, setProduct2] = useState([])
     const [listaPedido, setListaPedido] = useState(routerProps.lista)
     const [numeroItem, setNumeroItem] = useState(1)
-    const [thisProduct, setThisProduct] = useState([])
+    const [thisProduct, setThisProduct] = useState(intersection[0])
 
 
-
+     
     // const updateLista =()=>{
     //     setListaPedido(JSON.parse(window.localStorage.getItem('invitado')))
     // }
@@ -101,6 +109,7 @@ const MyGallery = (routerProps) => {
                     console.log(listaPedido)
                     console.log(aZero)
                     window.localStorage.setItem('invitado', JSON.stringify(aZero));
+                    intersection.updateLista.updateLista()
                     setListaPedido(aZero)
                     setThisProduct(null)
                 }
@@ -129,6 +138,8 @@ const MyGallery = (routerProps) => {
                     console.log(thisProduct)
                     console.log(listaStorage)
                     window.localStorage.setItem('invitado', JSON.stringify(listaStorage));
+                    routerProps.updateLista()
+
                 }
             })
             if(isThere===0){
@@ -142,6 +153,8 @@ const MyGallery = (routerProps) => {
                 setThisProduct({...thisProduct, cantidad:listaPedido.cantidad})
 
                 window.localStorage.setItem('invitado', JSON.stringify(listaPedido));
+                routerProps.updateLista()
+
             }
         }else{
             console.log('else2')
@@ -152,6 +165,8 @@ const MyGallery = (routerProps) => {
               setThisProduct({...thisProduct, cantidad:listaPedido.cantidad})
 
               window.localStorage.setItem('invitado', JSON.stringify(listaPedido));
+              routerProps.updateLista()
+
         }
     }
 
@@ -164,6 +179,8 @@ const MyGallery = (routerProps) => {
           console.log('if menos')
           i.cantidad=0
           setThisProduct({...thisProduct, cantidad:i.cantidad})
+          routerProps.updateLista()
+
 
           if(i.cantidad===0){
             console.log('zero')
@@ -174,11 +191,15 @@ const MyGallery = (routerProps) => {
             window.localStorage.setItem('invitado', JSON.stringify(aZero));
             setListaPedido(aZero)
             setThisProduct(null)
+            routerProps.updateLista()
+
 
           }else{
             console.log('else menos')
             console.log(listaStorage)
             window.localStorage.setItem('invitado', JSON.stringify(listaStorage));
+            routerProps.updateLista()
+
           }
         }
       })
@@ -198,10 +219,7 @@ const MyGallery = (routerProps) => {
 
   }, [esteProduct,listaPedido])
 
-  console.log(routerProps.lista)
-  console.log(Product._id)
-  let intersection = routerProps.lista.filter(el=> el._id==routerProps.match.params._id)[0]
-  console.log(intersection)
+
 
     return (<>
         {/* <HeroSwiper updateLista={updateLista}/> */}
@@ -215,14 +233,14 @@ const MyGallery = (routerProps) => {
                     <p style={{color:'#333', fontSize:'2.5em'}}>{Product.name}</p>
                     <p style={{color:'#333', fontSize:'calc(10px + 1.2vmin)', margin:'1em 0', lineHeight:'150%'}}>{Product.descrip}</p>
                     <p style={{color:'#333', fontSize:'0.9em', marginTop:'1em'}}>Stock: {Product.stock}</p>
-                    {thisProduct ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {intersection.cantidad} </p>:<></>} {/* thisProduct.cantidad ... cambiar todos los thisProduct a intersection, como en User o como en productSideCarrito */}
+                    {intersection[0] ? <p style={{color:'#000', fontSize:'1.2em'}}>Cantidad en el carrito: {intersection[0].cantidad} </p>:<></>} {/* thisProduct.cantidad ... cambiar todos los thisProduct a intersection, como en User o como en productSideCarrito */}
                     <br></br>
                     <p style={{color:'mediumvioletred', fontSize:'2.2em', fontWeight:'bold', margin:'1rem 0 2rem 0'}}>${Product.price}</p>
 
                 <div>
                     <label htmlFor="cantidadP">Cantidad:</label><br/>
                     <div style={{display:'flex', gap:10}}>
-                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  placeholder={thisProduct ? intersection.cantidad:'1'} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
+                    <input min="0" style={{width:'5rem', height:'3rem', fontSize:'20px'}}  type="number" id="cantidadP" name="cantidadP"  placeholder={intersection[0] ? intersection[0].cantidad:'1'} onChange={(e)=>  setNumeroItem(e.target.value)} /> <br/>
                     {numeroItem>0 && numeroItem<=Product.stock? <Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={changeCartHandler} >{esteProduct? "Editar" :"Agregar"}</Button>: numeroItem<=0 ? !esteProduct? <></>:<Button size="small" style={{background:'pink',color:'black', fontSize:'16px'}} onClick={deleteElementHandler} >Quitar </Button>: <p>No hay stock para su pedido</p>}
                     </div>
                 </div>

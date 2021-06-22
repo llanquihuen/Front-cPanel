@@ -60,10 +60,10 @@ function App() {
   let intervalRef = useRef();
   
   
-  // useEffect(() => {
-  //     intervalRef.current = setInterval(decreaseNum, 1000);
-  //     return () => clearInterval(intervalRef.current);
-  // }, []);
+  useEffect(() => {
+      intervalRef.current = setInterval(decreaseNum, 1000);
+      return () => clearInterval(intervalRef.current);
+  }, []);
 
   // Configuracion HH:MM:SS de cuenta regresiva  
   let hours = Math.floor(num/3600);
@@ -82,8 +82,8 @@ function App() {
       <button className={'btns-post'} style={{height:40 ,paddingTop:'5px',position:'absolute',top:5,right:10,background:'pink',color:'black',fontSize:'calc(10px + 1.2vmin)'}} onClick={logOut}>Cerrar Sesion <p style={{marginTop:20}}>Tiempo restante:  {countdown}</p></button>
       
       <header className="App-header">
-        <p style={{paddingTop:50}}>Base de Datos de los Productos de la tienda </p>
-        Te amo mucho! 
+        <p style={{padding:'50px 0', fontWeight:'bolder', color:'#555'}}>Base de Datos de los Productos de la tienda </p>
+        {/* Te amo mucho!  */}
 
        <br/>
        <br/>

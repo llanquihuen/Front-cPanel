@@ -6,10 +6,11 @@ import { pink } from '@material-ui/core/colors';
 
 
 import imagenCamila from './views/images/logo.png'
+import myConfig from './config';
 
 
 
-const baseUrl="http://localhost:5000/auth/login";
+const baseUrl=`${myConfig.urlBack}auth/login`;
 // const baseUrl="https://organizarclientes-github.herokuapp.com/auth/login";
 
 
