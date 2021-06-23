@@ -17,7 +17,6 @@ const Routes = () => {
     useEffect(() => {
         dispatch(getPosts())  ////////2* action->UseEffect ->reducer 
     }, [currentId, dispatch])
-
     let direccion = Login
 
         if (!localStorage.getItem("token")){
@@ -25,11 +24,18 @@ const Routes = () => {
         }else{
             direccion=App
         }
+
+        if (window.location.host=== 'sakuranboshodo.cl'
+        || window.location.host === 'www.sakuranboshodo.cl'){
+            var theBaseName = '/store2'
+        }else{
+            theBaseName='/'
+        }
     return (
     <BrowserRouter>
         <Switch>
             <Route exact path='/loginproductos' component={direccion}/>
-            <Route path='/'component={Tienda}/>
+            <Route path={theBaseName} component={Tienda}/>
             <Route component={NotFound}/>
 
         </Switch>

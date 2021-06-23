@@ -80,6 +80,12 @@ const Login = () => {
   },
 });
 
+if (window.location.host=== 'sakuranboshodo.cl'
+|| window.location.host === 'www.sakuranboshodo.cl'){
+    var isLocal = false
+}else{
+    isLocal = true;
+}
     return (
         <div style={{padding:'0',margin:0,background:'#ecc',height:'100vh',display:'flex', alignItems:'center'}} >
                <Container style={{position:'relative',background:'rgba(255,255,255,.8)',height:'80vh',borderRadius:20, boxShadow:'10px 10px 5px #9D5C5C66'}}  maxWidth="sm">
@@ -93,7 +99,7 @@ const Login = () => {
                 <TextField style={{marginBottom:20}} name="username" variant="outlined" label="Nombre" fullWidth  onClick={(e)=> setDatos ({...datos, username:e.target.value}) }    onChange={(e)=> setDatos ({...datos, username:e.target.value})}/>
                 <TextField id="inputPass" style={{marginBottom:20}} name="password" variant="outlined" type='password' label="Password" fullWidth  onChange={(e)=> setDatos ({...datos, password:e.target.value })}/>
                       </ThemeProvider>
-                            <div>{!loading? "Usuario: luis1 - Contraseña: lalala": ""}</div>
+                            <div>{!loading&&isLocal? "Usuario: luis1 - Contraseña: lalala": ""}</div>
                             <div>{loading? "Espere un momento...": " "}</div>
                             <div>{unerror? "Contraseña o usuario incorrecto": " "}</div>
                 <Button id="botonLogin" style={{background:'crimson', color:'snow'}} variant="contained" color="primary" size="large"  onClick={()=>iniciarSesion(datos)} fullWidth>Aceptar</Button>

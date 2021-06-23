@@ -85,7 +85,13 @@ const HeroSwiper = (este) => {
 
     const sumaPrecios = preciosCantidad.reduce((a,b)=> a+b,0)
     console.log(sumaPrecios)
-
+    
+    if (window.location.host=== 'sakuranboshodo.cl'
+    || window.location.host === 'www.sakuranboshodo.cl'){
+        var theBaseName = '/store2'
+    }else{
+        theBaseName=''
+    }
 
     const list = (anchor) => (
       <div
@@ -107,7 +113,7 @@ const HeroSwiper = (este) => {
             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',background:'rgb(252, 235, 235)',padding:'1em'}}>
                 <h1>Total: ${numberWithDots(sumaPrecios)} </h1>
 
-                <Button href='/invitado' style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
+                <Button href={theBaseName+'/invitado'} style={{padding:'1em', background:'pink',fontSize:'1.3em',margin:'1em', textAlign:'center'}}>Finalizar compra</Button>
             </div>
 
       </div>

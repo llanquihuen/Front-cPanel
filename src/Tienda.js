@@ -80,11 +80,16 @@ function Tienda() {
         }else{
             direccion=App
         }
-        
+    if (window.location.host=== 'sakuranboshodo.cl'
+    || window.location.host === 'www.sakuranboshodo.cl'){
+        var theBaseName = '/store2'
+    }else{
+        theBaseName='/'
+    }
   return (
 
     <div className="styleApp">
-        <BrowserRouter >
+        <BrowserRouter basename={theBaseName}>
         <Switch>
             <Route exact path='/' render={()=>
             <>

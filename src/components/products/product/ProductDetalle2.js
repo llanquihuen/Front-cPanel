@@ -70,6 +70,13 @@ const MyGallery = (routerProps) => {
     // }, [esteProduct])
 
 
+    if (window.location.host=== 'sakuranboshodo.cl'
+    || window.location.host === 'www.sakuranboshodo.cl'){
+        var theBaseName = '/store2'
+    }else{
+        theBaseName=''
+    }
+
 
 
     const isMobile = useMediaQuery({ query: '(max-width: 920px)' })
@@ -245,7 +252,7 @@ const MyGallery = (routerProps) => {
                     </div>
                 </div>
                 <br></br>
-                {listaPedido.length>0? <Button href='/invitado' style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
+                {listaPedido.length>0? <Button href={theBaseName+'/invitado'} style={{padding:'0.5em 1em', background:'pink',fontSize:'1.3em',margin:'1em 0', marginBottom:'3em', border:'2px solid', borderColor:pink[200]}}>Finalizar Compra</Button>:<p></p>}
 
                 {esteProduct?<div style={{position:'absolute',display:'flex',flexDirection:'row-reverse',right:0, bottom:0}}><Button size="large" style={{background:'#ff6666',color:'black', fontSize:'14px', marginTop:20}} onClick={deleteElementHandler} >Quitar del carro🗑️</Button></div>:<></>}
 
